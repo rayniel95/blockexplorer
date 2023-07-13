@@ -41,7 +41,7 @@ export default function Home() {
 						{blocks.reverse().map((block, index) => {
 							return (
 								<ListGroup.Item key={index}>
-									<BlockItem block={block} />
+									<BlockItem item={block} />
 								</ListGroup.Item>
 							);
 						})}
