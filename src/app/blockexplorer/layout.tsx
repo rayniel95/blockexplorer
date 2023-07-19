@@ -46,8 +46,7 @@ export default function BlockExplorerLayout({
                   <Offcanvas.Body>
                     <p className="mb-0">
                       <Link href={`${process.env.NEXT_PUBLIC_BASE_PATH}/blocklist`}>Block</Link>
-                      <Nav.Link href="/transaction">Transaction</Nav.Link>
-                      <Nav.Link href="/address">Address</Nav.Link>
+                      <Nav.Link href="/address">Huff Verifier</Nav.Link>
                     </p>
                   </Offcanvas.Body>
                 </Offcanvas>

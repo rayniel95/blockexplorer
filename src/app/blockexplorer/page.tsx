@@ -8,7 +8,7 @@ import { TransactionItem } from "@/src/components/ethereum/transactionItem";
 
 //TODO - Move all the managers to a singleton instance
 const manager = new EthereumManager();
-
+//TODO - move all the page routes to one level up
 export default function Home() {
 	const [blocks, setBlocks] = useState([]);
 
