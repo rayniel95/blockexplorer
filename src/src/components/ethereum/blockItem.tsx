@@ -4,7 +4,11 @@ export function BlockItem({ item }: { item: any }) {
         return (
             <div>
                 <p>
-                    Block number: {parseInt(item.result.number, 16)}
+                    <a 
+                        href={`/blockexplorer/blockdetails/block/${parseInt(item.result.number, 16)}`}
+                    >
+                        Block number: {parseInt(item.result.number, 16)}
+                    </a>
                 </p>
                 <p>
                     Number of tx: {item.result.transactions.length}
