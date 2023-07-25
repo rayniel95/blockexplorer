@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import networkReducer from "./networkSlice";
+import blockReducer from "./blockSlice";
+
 
 const store = configureStore({
   reducer: {
-    network: networkReducer
+    network: networkReducer,
+    block: blockReducer
   },
 })
 
