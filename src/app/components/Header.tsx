@@ -30,7 +30,7 @@ export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
             <Offcanvas.Body>
               <Nav>
                 <Nav.Link href="/">Home</Nav.Link>
-                <NavDropdown
+                {/* <NavDropdown
                   title="Network"
                   id="offCanvasNav"
                 >
@@ -55,7 +55,7 @@ export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
                   <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.NEAR))}>
                     Near
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </Nav>
               <Form className="d-flex">
                 <Form.Control
