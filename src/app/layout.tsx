@@ -46,7 +46,7 @@ export default function RootLayout({
                   </Offcanvas.Header>
                   <Offcanvas.Body>
                     <p className="mb-0">
-                      <Link href={'/blocklist'}>Block</Link>
+                      <Link href={'/blocklist'}>Blocks</Link>
                       <Link href="/address">Huff Verifier</Link>
                     </p>
                   </Offcanvas.Body>
