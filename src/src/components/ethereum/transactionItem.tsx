@@ -10,8 +10,6 @@ interface TxItemProps {
 
 export function TransactionItem({ tx }: TxItemProps) {
     //FIXME - this doesnt work if there are multiple triggers in the same div
-    //TODO - create multiple component with tooltips. them will be used in
-    // multiple components
     return (
         <div>
             <a
