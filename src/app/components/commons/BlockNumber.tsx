@@ -1,26 +1,28 @@
-import { Col, Row } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
+'use client'
 
-export default function Footer() {
-//TODO - add color themes. research about it
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+
+import { BlockWithTransactions } from "alchemy-sdk";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+
+
+export default function BlockNumber({ block }: { block: BlockWithTransactions }) {
+  //TODO - add color themes. research about it
   return (
-    <footer>
-      <Container>
-        <Row>
-          <Col>
-            <p>
-              Made with ❤️ by <a href="https://rayniel95.github.io/">Rainyel Ramos</a>
-            </p>
-          </Col>
-          <Col>
-            <p>
-              <a href="https://github.com/rayniel95/ecdsa-node">
-                <i className="bi bi-github"></i> take a look to the code
-              </a>
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    </footer>
+    <div>
+      <OverlayTrigger
+        placement='top'
+        overlay={
+          <Tooltip id="tooltip-top-hash">
+            Block number: {parseInt(block.number.toString(), 16)}
+          </Tooltip>
+        }
+      >
+        <p>
+          #: {`${block.number.toString().slice(0, 5)}...`}
+        </p>
+      </OverlayTrigger>
+    </div>
   );
 }
