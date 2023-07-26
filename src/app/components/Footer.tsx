@@ -14,7 +14,7 @@ export default function Footer() {
           </Col>
           <Col>
             <p>
-              <a href="https://github.com/rayniel95/ecdsa-node">
+              <a href="https://github.com/rayniel95/blockexplorer">
                 <i className="bi bi-github"></i> take a look to the code
               </a>
             </p>
