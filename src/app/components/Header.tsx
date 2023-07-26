@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { changeNetwork } from "@/src/stateManager/networkSlice";
 import { Network } from "@/src/stateManager/types";
 import { useAppDispatch } from "@/src/stateManager/hooks";
+import * as settings from "@/src/settings"
 
 
 export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
@@ -29,7 +30,7 @@ export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav>
-                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href={`${settings.BASE_PATH}`}>Home</Nav.Link>
                 {/* <NavDropdown
                   title="Network"
                   id="offCanvasNav"
