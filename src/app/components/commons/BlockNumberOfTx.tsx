@@ -7,7 +7,7 @@ import { BlockWithTransactions } from "alchemy-sdk";
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 
-export default function BlockNumber({ block }: { block: BlockWithTransactions }) {
+export default function BlockNumberOfTx({ block }: { block: BlockWithTransactions }) {
   //TODO - add color themes. research about it
   return (
     <div>
@@ -15,12 +15,12 @@ export default function BlockNumber({ block }: { block: BlockWithTransactions })
         placement='top'
         overlay={
           <Tooltip id="tooltip-top-hash">
-            Block number: {parseInt(block.number.toString(), 16)}
+            Number of transactions: {block.transactions.length}
           </Tooltip>
         }
       >
         <p>
-          <i className="bi bi-boxes"></i> {`${block.number.toString().slice(0, 5)}...`}
+          <i className="bi bi-list-stars"></i> {block.transactions.length}
         </p>
       </OverlayTrigger>
     </div>
