@@ -53,11 +53,6 @@ export default function RootLayout({
                           <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
                         </Col>
                       </Row>
-                      <Row>
-                        <Col>
-                          <Link href={`${settings.HUFFVERIFIER_ROUTE}`}>Huff Verifier</Link>
-                        </Col>
-                      </Row>
                     </Container>
                   </Offcanvas.Body>
                 </Offcanvas>
