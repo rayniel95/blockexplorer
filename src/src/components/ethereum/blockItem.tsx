@@ -1,6 +1,9 @@
 import { actualBlock } from "@/src/stateManager/blockSlice"
 import { useAppDispatch } from "@/src/stateManager/hooks"
 import * as settings from "@/src/settings"
+import BlockNumber from "@/app/components/commons/BlockNumber"
+import BlockNumberOfTx from "@/app/components/commons/BlockNumberOfTx"
+import BlockFeeRecipient from "@/app/components/commons/BlockFeeRecipient"
 
 
 export function BlockItem({ item }: { item: any }) {
@@ -9,20 +12,19 @@ export function BlockItem({ item }: { item: any }) {
     if (item.result) {
         return (
             <div>
-                <p>
-                    <a 
-                        // onClick={()=>dispatch(actualBlock(item.result))}
-                        href={`${settings.BLOCKDETAILSNUMBER_ROUTE}${parseInt(item.result.number, 16)}`}
-                    >
-                        Block number: {parseInt(item.result.number, 16)}
-                    </a>
-                </p>
-                <p>
-                    Number of tx: {item.result.transactions.length}
-                </p>
-                <p>
-                    Fee recipient: {item.result.miner}
-                </p>
+                <a
+                    href={`${settings.BLOCKDETAILSNUMBER_ROUTE}${parseInt(item.result.number, 16)}`}
+                >
+                    <p>
+                        <BlockNumber block={item.result} />
+                    </p>
+                    <p>
+                        <BlockNumberOfTx block={item.result} />
+                    </p>
+                    <p>
+                        <BlockFeeRecipient block={item.result} />
+                    </p>
+                </a>
             </div>
         )
     }
