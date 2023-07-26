@@ -1,4 +1,8 @@
+import TransactionHash from "@/app/components/commons/TransactionHash";
+import TransactionFrom from "@/app/components/commons/TxFrom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import * as settings from "@/src/settings"
+import TransactionTo from "@/app/components/commons/TxTo";
 
 interface TxItemProps {
     tx: any
@@ -10,42 +14,13 @@ export function TransactionItem({ tx }: TxItemProps) {
     // multiple components
     return (
         <div>
-            <OverlayTrigger
-                placement='top'
-                overlay={
-                    <Tooltip id="tooltip-top-hash">
-                        Transaction number: {tx.hash}
-                    </Tooltip>
-                }
+            <a
+                href={`${settings.TRANSACTIONDETAILS_ROUTE}/${tx.hash}`}
             >
-                <p>
-                    Tx number: {`${tx.hash.toString().slice(0, 5)}...`}
-                </p>
-            </OverlayTrigger>
-            <OverlayTrigger
-                placement='top'
-                overlay={
-                    <Tooltip id="tooltip-top-from">
-                        Transaction from: {tx.from}
-                    </Tooltip>
-                }
-            >
-                <Button variant="secondary">
-                    Tx from: {`${tx.from.toString().slice(0, 5)}...`}
-                </Button>
-            </OverlayTrigger>
-            <OverlayTrigger
-                placement='top'
-                overlay={
-                    <Tooltip id="tooltip-top-to">
-                        Transaction to: {tx.to}
-                    </Tooltip>
-                }
-            >
-                <Button variant="secondary">
-                    Tx to: {`${tx.to.toString().slice(0, 5)}...`}
-                </Button>
-            </OverlayTrigger>
+                <TransactionHash tx={tx} />
+                <TransactionFrom tx={tx} />
+                <TransactionTo tx={tx} />
+            </a>
         </div>
     )
 }
