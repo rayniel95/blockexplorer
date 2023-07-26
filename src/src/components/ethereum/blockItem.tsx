@@ -1,5 +1,6 @@
 import { actualBlock } from "@/src/stateManager/blockSlice"
 import { useAppDispatch } from "@/src/stateManager/hooks"
+import * as settings from "@/src/settings"
 
 
 export function BlockItem({ item }: { item: any }) {
@@ -11,7 +12,7 @@ export function BlockItem({ item }: { item: any }) {
                 <p>
                     <a 
                         // onClick={()=>dispatch(actualBlock(item.result))}
-                        href={`/blockexplorer/blockdetails/block/${parseInt(item.result.number, 16)}`}
+                        href={`${settings.BLOCKDETAILSNUMBER_ROUTE}${parseInt(item.result.number, 16)}`}
                     >
                         Block number: {parseInt(item.result.number, 16)}
                     </a>
