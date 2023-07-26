@@ -3,7 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
-import { Col, Container, Nav, Offcanvas, Row } from 'react-bootstrap'
+import { Col, Container, ListGroup, ListGroupItem, Nav, Offcanvas, Row } from 'react-bootstrap'
 import Footer from './components/Footer'
 import Link from 'next/link'
 import Header from './components/Header'
@@ -11,6 +11,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import store from '@/src/stateManager/store'
 import { Provider } from 'react-redux'
+import * as settings from '@/src/settings'
 
 
 // TODO - add transaction and block details and improve css with icons in 
@@ -45,10 +46,19 @@ export default function RootLayout({
                     <Offcanvas.Title>Responsive offcanvas</Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body>
-                    <p className="mb-0">
-                      <Link href={'/blocklist'}>Blocks</Link>
-                      <Link href="/address">Huff Verifier</Link>
-                    </p>
+                    {/* TODO - put this in another component */}
+                    <Container>
+                      <Row>
+                        <Col>
+                          <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Link href={`${settings.HUFFVERIFIER_ROUTE}`}>Huff Verifier</Link>
+                        </Col>
+                      </Row>
+                    </Container>
                   </Offcanvas.Body>
                 </Offcanvas>
               </Col>
