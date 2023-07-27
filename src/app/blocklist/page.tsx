@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import List from "./components/Lists";
+import List from "../components/commons/Lists";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
 import { BlockItem } from "@/src/components/ethereum/blockItem";
 
@@ -16,10 +16,11 @@ async function blockController(itemsPerPage: number, pageNumber: number): Promis
 		pageNumber * itemsPerPage,
 		pageNumber * itemsPerPage + itemsPerPage
 	);
-	elementProps.reverse()
 	return {
 		itemsPerPage,
-		elementProps,
+		elementProps: elementProps.reverse().map(
+			(item) => (item.result)
+		),
 		itemsCount
 	}
 }
