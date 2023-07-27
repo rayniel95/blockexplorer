@@ -4,12 +4,12 @@ import * as settings from "@/src/settings"
 import BlockNumber from "@/app/components/commons/block/BlockNumber"
 import BlockNumberOfTx from "@/app/components/commons/block/BlockNumberOfTx"
 import BlockFeeRecipient from "@/app/components/commons/block/BlockFeeRecipient"
+import { BlockWithTransactions } from "alchemy-sdk"
+import Link from "next/link"
 
 
-export function BlockItem({ item }: { item: any }) {
-    const dispatch = useAppDispatch()
-
-    if (item.result) {
+export function BlockItem({ item }: { item: BlockWithTransactions }) {
+    if (item) {
         return (
             <div>
                 <a
