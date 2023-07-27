@@ -12,8 +12,8 @@ export function BlockItem({ item }: { item: BlockWithTransactions }) {
     if (item) {
         return (
             <div>
-                <a
-                    href={`${settings.BLOCKDETAILSNUMBER_ROUTE}/${parseInt(item.result.number, 16)}`}
+                <Link
+                    href={`${settings.BLOCKDETAILSNUMBER_ROUTE}/${parseInt(item.number.toString(), 16)}`}
                 >
                     <p>
                         <BlockNumber block={item.result} />
@@ -23,6 +23,7 @@ export function BlockItem({ item }: { item: BlockWithTransactions }) {
                         <BlockFeeRecipient block={item.result} />
                     </p>
                 </a>
+                </Link>
             </div>
         )
     }
