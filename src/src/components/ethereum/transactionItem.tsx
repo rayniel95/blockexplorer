@@ -1,8 +1,8 @@
-import TransactionHash from "@/app/components/commons/TransactionHash";
-import TransactionFrom from "@/app/components/commons/TxFrom";
+import TransactionHash from "@/app/components/commons/transaction/TransactionHash";
+import TransactionFrom from "@/app/components/commons/transaction/TxFrom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import * as settings from "@/src/settings"
-import TransactionTo from "@/app/components/commons/TxTo";
+import TransactionTo from "@/app/components/commons/transaction/TxTo";
 
 interface TxItemProps {
     tx: any
