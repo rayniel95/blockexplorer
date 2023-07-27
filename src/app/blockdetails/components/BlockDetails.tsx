@@ -24,7 +24,7 @@ export default function BlockDetails({block}: {block: BlockWithTransactions}) {
 			<BlockNumber block={block} />
 			<BlockHash block={block} />
 			<BlockTimestamp block={block} />
-			<Link href={settings.TRANSACTIONLIST_ROUTE}><BlockNumberOfTx block={block} /></Link>
+			<Link href={`${settings.TRANSACTIONLIST_ROUTE}/${parseInt(block.number.toString(),16)}`}><BlockNumberOfTx block={block} /></Link>
 			<BlockFeeRecipient block={block} />
 			<BlockGasUsed block={block} />
 			<BlockExtraData block={block} />
