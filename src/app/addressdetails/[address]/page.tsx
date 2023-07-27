@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import List from "./components/Lists";
+import List from "@/app/components/commons/Lists"
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
 import { BlockItem } from "@/src/components/ethereum/blockItem";
 
