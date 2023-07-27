@@ -15,14 +15,11 @@ export function BlockItem({ item }: { item: BlockWithTransactions }) {
                 <Link
                     href={`${settings.BLOCKDETAILSNUMBER_ROUTE}/${parseInt(item.number.toString(), 16)}`}
                 >
-                    <p>
-                        <BlockNumber block={item.result} />
-        
-                        <BlockNumberOfTx block={item.result} />
-    
-                        <BlockFeeRecipient block={item.result} />
-                    </p>
-                </a>
+                    <BlockNumber block={item} />
+
+                    <BlockNumberOfTx block={item} />
+
+                    <BlockFeeRecipient block={item} />
                 </Link>
             </div>
         )
