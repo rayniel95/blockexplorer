@@ -3,13 +3,11 @@ import TransactionFrom from "@/app/components/commons/transaction/TxFrom";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import * as settings from "@/src/settings"
 import TransactionTo from "@/app/components/commons/transaction/TxTo";
+import { TransactionResponse } from "alchemy-sdk";
+import Link from "next/link";
 
-interface TxItemProps {
-    tx: any
-}
 
-export function TransactionItem({ tx }: TxItemProps) {
-    //FIXME - this doesnt work if there are multiple triggers in the same div
+export function TransactionItem({ item }: { item: TransactionResponse }) {
     return (
         <div>
             <a
