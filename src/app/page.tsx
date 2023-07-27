@@ -52,7 +52,7 @@ export default function Home() {
 							manager.extractLatestsTransactions(blocks, 5).map((tx, index) => {
 								return (
 									<ListGroup.Item key={index}>
-										<TransactionItem tx={tx} />
+										<TransactionItem item={tx} />
 									</ListGroup.Item>
 								);
 							})
