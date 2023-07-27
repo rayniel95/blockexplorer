@@ -10,13 +10,13 @@ import Link from "next/link";
 export function TransactionItem({ item }: { item: TransactionResponse }) {
     return (
         <div>
-            <a
-                href={`${settings.TRANSACTIONDETAILS_ROUTE}/${tx.hash}`}
+            <Link
+                href={`${settings.TRANSACTIONDETAILS_ROUTE}/${item.hash}`}
             >
-                <TransactionHash tx={tx} />
-                <TransactionFrom tx={tx} />
-                <TransactionTo tx={tx} />
-            </a>
+                <TransactionHash tx={item} />
+                <TransactionFrom tx={item} />
+                <TransactionTo tx={item} />
+            </Link>
         </div>
     )
 }
