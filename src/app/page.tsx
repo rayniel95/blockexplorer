@@ -37,10 +37,10 @@ export default function Home() {
 			<Row>
 				<Col>
 					<ListGroup>
-						{blocks.reverse().map((block, index) => {
+						{blocks.reverse().map((response, index) => {
 							return (
 								<ListGroup.Item key={index}>
-									<BlockItem item={block} />
+									<BlockItem item={response.result} />
 								</ListGroup.Item>
 							);
 						})}
