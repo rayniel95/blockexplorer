@@ -5,12 +5,14 @@ import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/e
 import { BlockWithTransactionData, Transaction } from "ethereum-types";
 import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import { TransactionResponse } from "alchemy-sdk";
+import TransactionHash from "@/app/components/commons/transaction/TransactionHash";
+import TransactionDetails from "./components/TransactionDetails";
 
 
 const manager = new EthereumManager();
 
 
-export default function TransactionDetails({params}: {params:{transactionHash:string}}) {
+export default function TransactionBlockHashDetails({params}: {params:{transactionHash:string}}) {
 	const [transaction, setTransaction] = useState<TransactionResponse>({} as TransactionResponse);
 	const {transactionHash} = params;
 
@@ -27,13 +29,11 @@ export default function TransactionDetails({params}: {params:{transactionHash:st
 
 		// Fetch data initially
 		fetchData();
-	});
+	}, []);
 
 	return (
 		<div>
-			here are the block {transactionHash} details
-
-			<p>{JSON.stringify(transaction)}</p>
+			{transaction.hash && <TransactionDetails tx={transaction}/>}
 		</div>
 	);
 }
