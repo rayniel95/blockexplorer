@@ -5,16 +5,8 @@ import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/e
 import { BlockWithTransactionData } from "ethereum-types";
 import { BlockWithTransactions, TransactionResponse } from "alchemy-sdk";
 import BlockNumber from "@/app/components/commons/block/BlockNumber";
-import BlockTimestamp from "@/app/components/commons/block/BlockTimestamp";
-import BlockNumberOfTx from "@/app/components/commons/block/BlockNumberOfTx";
-import BlockFeeRecipient from "@/app/components/commons/block/BlockFeeRecipient";
 import Link from "next/link";
 import * as settings from "@/src/settings"
-import BlockDifficulty from "@/app/components/commons/block/BlockDifficulty";
-import BlockGasUsed from "@/app/components/commons/block/BlockGasUsed";
-import BlockExtraData from "@/app/components/commons/block/BlockExtraData";
-import BlockHash from "@/app/components/commons/block/BlockHash";
-import BlockSize from "@/app/components/commons/block/BlockSize";
 import TransactionHash from "@/app/components/commons/transaction/TransactionHash";
 import TransactionFrom from "@/app/components/commons/transaction/TransactionFrom";
 import TransactionTo from "@/app/components/commons/transaction/TransactionTo";
