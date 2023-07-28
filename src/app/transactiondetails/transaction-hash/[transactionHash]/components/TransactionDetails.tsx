@@ -23,12 +23,14 @@ import TransactionGasLimit from "@/app/components/commons/transaction/Transactio
 //FIXME - use the link component from next instead a component. it add
 // base path automatically
 
-export default function TransactionDetails({tx}: {tx: TransactionResponse}) {
+export default function TransactionDetails({ tx }: { tx: TransactionResponse }) {
 	//TODO - add links to address details and block details with hash and number
 	return (
 		<div>
 			<TransactionHash tx={tx} />
-			<BlockNumber block={{number: tx.blockNumber} as BlockWithTransactions} />
+			<Link href={settings.BLOCKDETAILSNUMBER_ROUTE + "/" + tx.blockNumber}>
+				<BlockNumber block={{ number: tx.blockNumber } as BlockWithTransactions} />
+			</Link>
 			<TransactionValue tx={tx} />
 			<TransactionFrom tx={tx} />
 			<TransactionTo tx={tx} />
