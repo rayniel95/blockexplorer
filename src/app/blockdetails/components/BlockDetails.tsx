@@ -18,14 +18,18 @@ import BlockSize from "@/app/components/commons/block/BlockSize";
 //FIXME - use the link component from next instead a component. it add
 // base path automatically
 
-export default function BlockDetails({block}: {block: BlockWithTransactions}) {
+export default function BlockDetails({ block }: { block: BlockWithTransactions }) {
 	return (
 		<div>
 			<BlockNumber block={block} />
 			<BlockHash block={block} />
 			<BlockTimestamp block={block} />
-			<Link href={`${settings.TRANSACTIONLIST_ROUTE}/${parseInt(block.number.toString(),16)}`}><BlockNumberOfTx block={block} /></Link>
-			<BlockFeeRecipient block={block} />
+			<Link href={`${settings.TRANSACTIONLISTBLOCK_ROUTE}/${parseInt(block.number.toString(), 16)}`}>
+				<BlockNumberOfTx block={block} />
+			</Link>
+			<Link href={`${settings.ADDRESSDETAILS_ROUTE}/${block.miner}`}>
+				<BlockFeeRecipient block={block} />
+			</Link>
 			<BlockGasUsed block={block} />
 			<BlockExtraData block={block} />
 		</div>
