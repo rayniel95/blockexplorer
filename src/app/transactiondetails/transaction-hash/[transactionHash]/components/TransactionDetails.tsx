@@ -24,10 +24,10 @@ export default function TransactionDetails({ tx }: { tx: TransactionResponse }) 
 				<BlockNumber block={{ number: tx.blockNumber } as BlockWithTransactions} />
 			</Link>
 			<TransactionValue tx={tx} />
-			<Link href={settings.TRANSACTIONDETAILS_ROUTE + "/" + tx.from}>
+			<Link href={settings.ADDRESSDETAILS_ROUTE + "/" + tx.from}>
 				<TransactionFrom tx={tx} />
 			</Link>
-			<Link href={settings.TRANSACTIONDETAILS_ROUTE + "/" + tx.to}>
+			<Link href={settings.ADDRESSDETAILS_ROUTE + "/" + tx.to}>
 				<TransactionTo tx={tx} />
 			</Link>
 			<TransactionGasLimit tx={tx} />
