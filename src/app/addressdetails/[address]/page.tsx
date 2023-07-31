@@ -4,37 +4,29 @@ import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import List from "@/app/components/commons/Lists"
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
 import { BlockItem } from "@/src/components/ethereum/blockItem";
+import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
+import { Utils } from "alchemy-sdk";
+import AddressBalance from "./components/AddressBalance";
+import AddressTransactionCount from "./components/AddressTransactionCount";
+import Link from "next/link";
+import * as settings from "@/src/settings";
 
 
 const manager = new EthereumManager();
-const itemsPerPage = 10
 
-async function blockController(itemsPerPage: number, pageNumber: number): Promise<{ itemsPerPage: number; elementProps: any[]; itemsCount: number }> {
-	const items = await manager.getLatestBlocks(1)
-	const itemsCount = parseInt(items[0].result.number, 16)
-	const elementProps = await manager.getBlocksFromNegativeIndex(
-		pageNumber * itemsPerPage,
-		pageNumber * itemsPerPage + itemsPerPage
-	);
-	elementProps.reverse()
-	return {
-		itemsPerPage,
-		elementProps,
-		itemsCount
-	}
-}
+export default function AddressDetails({ params }: { params: { address: string } }) {
+	const [balance, setBalance] = useState("");
+	const [transactionCount, setTransactionCount] = useState(0);
 
-export default function BlockList() {
-	const [offset, setOffset] = useState(0);
-	const [itemsCount, setItemsCount] = useState(0)
-	const [elementProps, setElementProps] = useState([])
+	const { address } = params;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await blockController(itemsPerPage, offset)
-				setElementProps(response.elementProps)
-				setItemsCount(response.itemsCount)
+				const response = await alchemy.core.getBalance(address);
+				const transactionCount = await alchemy.core.getTransactionCount(address);
+				setBalance(Utils.formatEther(response));
+				setTransactionCount(transactionCount);
 			} catch (error) {
 				console.error('Error:', error);
 			}
@@ -42,24 +34,14 @@ export default function BlockList() {
 
 		// Fetch data initially
 		fetchData()
-		// Fetch data every five seconds
-		const intervalId = setInterval(fetchData, 5000);
-
-		// Clean up interval timer when component unmounts
-		return () => {
-			clearInterval(intervalId);
-		};
-	}, [offset]);
+	}, []);
 
 	return (
 		<div>
-			<List
-				element={BlockItem}
-				itemsCount={itemsCount}
-				itemsPerPage={itemsPerPage}
-				elementProps={elementProps}
-				setOffset={setOffset}
-			/>
+			<AddressBalance balance={balance} />
+			<Link href={`${settings.TRANSACTIONLISTADDRESS_ROUTE}/${address}`}>
+				<AddressTransactionCount transactionCount={transactionCount} />
+			</Link>
 		</div>
 	);
 }
