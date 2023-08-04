@@ -41,7 +41,7 @@ export class EthereumManager implements INetworkManager {
         }
 
         const res = await fetch(
-            `${this.getNetworkUrl()}/${this.getApiKey()}/`,
+            `${this.getAlchemy().config.url}/${this.getApiKey()}/`,
             { method: 'POST', body: JSON.stringify(reqs), headers: { 'Content-Type': 'application/json' } }
         )
         const result: Array<{ id: number }> = await res.json()
@@ -56,12 +56,12 @@ export class EthereumManager implements INetworkManager {
      * @return {Promise<Array<any>>} - An array of blocks within the specified range.
      */
     async getBlocksFromNegativeIndex(start: number, end: number): Promise<Array<any>> {
-        const latestBlockNumber = await alchemy.core.getBlockNumber();
+        const latestBlockNumber = await this.getAlchemy().core.getBlockNumber();
         return await this.getBlocks(latestBlockNumber - end, latestBlockNumber - start)
 
     }
     async getLatestBlocks(cantity: number): Promise<Array<any>> {
-        const latestBlockNumber = await alchemy.core.getBlockNumber();
+        const latestBlockNumber = await this.getAlchemy().core.getBlockNumber();
         const response = await this.getBlocks(latestBlockNumber - cantity, latestBlockNumber)
         return response
     }
