@@ -3,7 +3,7 @@
 import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import List from "@/app/components/commons/Lists"
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/src/components/ethereum/blockItem";
+import { BlockItem } from "@/app/components/commons/BlockItem";
 import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import { Utils } from "alchemy-sdk";
 import AddressBalance from "./components/AddressBalance";

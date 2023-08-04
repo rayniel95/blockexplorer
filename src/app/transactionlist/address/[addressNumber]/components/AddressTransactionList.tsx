@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { AssetTransfersCategory } from "alchemy-sdk";
-import { TransactionItem } from "@/src/components/ethereum/transactionItem";
+import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import InfiniteScroll from "react-infinite-scroller";
 //FIXME - use the link component from next instead a component. it add

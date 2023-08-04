@@ -3,8 +3,8 @@
 import React, { Dispatch, SetStateAction, useState, useEffect, useCallback, memo } from "react";
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/src/components/ethereum/blockItem";
-import { TransactionItem } from "@/src/components/ethereum/transactionItem";
+import { BlockItem } from "@/app/components/commons/BlockItem";
+import { TransactionItem } from "@/app/components/commons/TransactionItem";
 
 //TODO - Move all the managers to a singleton instance
 const manager = new EthereumManager();

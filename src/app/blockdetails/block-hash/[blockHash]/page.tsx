@@ -7,7 +7,7 @@ import { BlockWithTransactionData } from "ethereum-types";
 
 const manager = new EthereumManager();
 
-
+//TODO - this is not finished yet
 export default function BlockDetails({params}: {params:{blockNumber:string}}) {
 	const [block, setBlock] = useState<BlockWithTransactionData>({} as BlockWithTransactionData);
 	const blockNumber = parseInt(params.blockNumber);

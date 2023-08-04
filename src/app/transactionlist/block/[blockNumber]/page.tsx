@@ -3,10 +3,10 @@
 import React, { Dispatch, SetStateAction, useState, useEffect, useMemo } from "react";
 import List from "../../../components/commons/Lists";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/src/components/ethereum/blockItem";
+import { BlockItem } from "@/app/components/commons/BlockItem";
 import BlockNumber from "@/app/components/commons/block/BlockNumber";
 import { BlockWithTransactions, TransactionResponse } from "alchemy-sdk";
-import { TransactionItem } from "@/src/components/ethereum/transactionItem";
+import { TransactionItem } from "@/app/components/commons/TransactionItem";
 
 const manager = new EthereumManager();
 const itemsPerPage = 10
