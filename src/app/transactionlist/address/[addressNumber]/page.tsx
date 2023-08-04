@@ -1,60 +1,29 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/src/components/ethereum/blockItem";
-import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
-import { AssetTransfersCategory, AssetTransfersResult } from "alchemy-sdk";
-import List from "@/app/components/commons/Lists";
-import InfiniteScroll from "react-infinite-scroller";
-import { TransactionItem } from "@/src/components/ethereum/transactionItem";
-import Link from "next/link";
-import * as settings from "@/src/settings";
+import { useState } from "react";
+import { Button, Container } from "react-bootstrap";
+import AddressTransactionList from "./components/AddressTransactionList";
 
-
-const manager = new EthereumManager();
-const itemsPerPage = 10
 
 //TODO - type this
-export default function AddressTransactionList({ params }: { params: { addressNumber: string } }) {
-	const [items, setItems] = useState([]);
-	const [pageKey, setPageKey] = useState(undefined)
+export default function TransactionListFromToAddress({ params }: { params: { addressNumber: string } }) {
+	const [from, setFrom] = useState(true)
 
 	const { addressNumber } = params
-	const hasMore = (pageKey == undefined && items.length == 0) || (pageKey != undefined && items.length > 0)
-
-	async function fetchData() {
-		try {
-			const response = await alchemy.core.getAssetTransfers({
-				category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.INTERNAL],
-				fromAddress: addressNumber,
-				maxCount: itemsPerPage,
-				pageKey: pageKey ? pageKey : undefined,
-			});
-			setItems(items.concat(response.transfers))
-			setPageKey(response.pageKey)
-		} catch (error) {
-			console.error('Error:', error);
-		}
-	}
 
 	return (
-		<div style={{ height: "700px", overflow: "auto" }}>
-			<InfiniteScroll
-				loadMore={fetchData}
-				hasMore={hasMore}
-				loader={<h4 key={-1}>Loading...</h4>} //TODO - use a loader icon
-				pageStart={0}
-				useWindow={false}
-			>
-				{
-					items.map(
-						(item) => (
-							<TransactionItem item={item} key={item.hash} />
-						)
-					)
-				}
-			</InfiniteScroll>
+		<div>
+			<Container>
+				<h4>
+					Transactions { from ? "from" : "to" } {addressNumber}
+				</h4>
+				<Button onClick={() => setFrom(!from)}>
+					<i className="bi bi-arrow-repeat"></i> { from ? "To" : "From" } address
+				</Button>
+			</Container>
+			<Container>
+				<AddressTransactionList key={from.toString()} addressNumber={addressNumber} from={from} />
+			</Container>
 		</div>
 	);
 }
