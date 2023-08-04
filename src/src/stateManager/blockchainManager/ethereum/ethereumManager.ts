@@ -1,7 +1,34 @@
-import { alchemy } from ".";
+import { Alchemy, Network } from "alchemy-sdk";
 import { INetworkManager } from "../../types";
 
+
+export interface EthereumManagerConfig{
+    apiKey: string;
+    network: Network;
+}
+
 export class EthereumManager implements INetworkManager {
+    configProp: EthereumManagerConfig;
+    alchemy: Alchemy;
+    constructor(config?: EthereumManagerConfig) {
+        config? this.configProp = config : this.configProp = {
+            apiKey: process.env.NEXT_PUBLIC_ETHEREUM_MAINNET_API_KEY,
+            network: Network.ETH_MAINNET,
+        };
+        this.alchemy = new Alchemy(this.configProp);
+    }
+    config(config: EthereumManagerConfig) {
+        this.configProp = config;
+    }
+    getApiKey(): string {
+        return this.configProp.apiKey;
+    }
+    getAlchemy(): Alchemy {
+        return this.alchemy;
+    }
+    getNetwork(): Network {
+        return this.configProp.network;
+    }
     async getBlocks(start: number, end: number): Promise<Array<any>> {
         const reqs = []
         for (let i = 0; i < end - start; i++) {
@@ -14,7 +41,7 @@ export class EthereumManager implements INetworkManager {
         }
 
         const res = await fetch(
-            `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ETHEREUM_API_KEY}`,
+            `${this.getNetworkUrl()}/${this.getApiKey()}/`,
             { method: 'POST', body: JSON.stringify(reqs), headers: { 'Content-Type': 'application/json' } }
         )
         const result: Array<{ id: number }> = await res.json()
