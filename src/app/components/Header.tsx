@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/src/stateManager/hooks";
 import * as settings from "@/src/settings"
 
 
-export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
+export default function Header({ showOffcanvas }: { showOffcanvas: () => void }) {
   //NOTE - maybe use a small font size for use expand in md
   //TODO - use a fixed bootom top for header and footer and put the center
   // in the middle
@@ -18,7 +18,7 @@ export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
       <Navbar expand="md">
         <Container fluid>
           <Button variant="primary" className="d-md-none" onClick={showOffcanvas}>
-            <i className="bi bi-three-dots"></i>          
+            <i className="bi bi-three-dots"></i>
           </Button>
           <Navbar.Brand>Blockchain Explorer</Navbar.Brand>
           <Navbar.Toggle aria-controls="offCanvasNav"></Navbar.Toggle>
@@ -31,32 +31,17 @@ export default function Header({showOffcanvas}: {showOffcanvas: () => void}) {
             <Offcanvas.Body>
               <Nav>
                 <Nav.Link href={`${settings.BASE_PATH}`}>Home</Nav.Link>
-                {/* <NavDropdown
+                <NavDropdown
                   title="Network"
                   id="offCanvasNav"
                 >
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.ETHEREUM))}>
-                    Ethereum
+                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.ETHEREUM))}>
+                    Ethereum Mainnet
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.STARKNET))}>
-                    StarkNet
+                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.STARKNET))}>
+                    Sepolia
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.POLYGON))}>
-                    Polygon
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.ARBITRUM))}>
-                    Arbitrum
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.SOLANA))}>
-                    Solana
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.POLKADOT))}>
-                    Polkadot
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e)=>dispatch(changeNetwork(Network.NEAR))}>
-                    Near
-                  </NavDropdown.Item>
-                </NavDropdown> */}
+                </NavDropdown>
               </Nav>
               <Form className="d-flex">
                 <Form.Control
