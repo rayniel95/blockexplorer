@@ -1,18 +1,15 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Network, isValidNetwork } from './types'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Network } from "alchemy-sdk";
 
 
 export const networkSlice = createSlice({
     name: 'network',
     initialState: {
-        newtork: Network.ETHEREUM
+        newtork: Network.ETH_MAINNET
     },
     reducers: {
         changeNetwork: (state, action: PayloadAction<Network>) => {
-            if (isValidNetwork(action.payload)) {
-                state.newtork = action.payload
-                return
-            }
+            state.newtork = action.payload
         },
     },
 })
