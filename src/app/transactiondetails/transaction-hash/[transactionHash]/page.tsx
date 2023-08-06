@@ -1,13 +1,10 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockWithTransactionData, Transaction } from "ethereum-types";
-import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import { TransactionResponse } from "alchemy-sdk";
-import TransactionHash from "@/app/components/commons/transaction/TransactionHash";
 import TransactionDetails from "./components/TransactionDetails";
-
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 const manager = new EthereumManager();
 
@@ -20,7 +17,7 @@ export default function TransactionBlockHashDetails({params}: {params:{transacti
 		const fetchData = async () => {
 			try {
 				//TODO - add loading item to items that read from network
-				const response = await alchemy.core.getTransaction(transactionHash)
+				const response = await ethereumManager.getAlchemy().core.getTransaction(transactionHash)
 				setTransaction(response);
 			} catch (error) {
 				console.error('Error:', error);

@@ -3,8 +3,8 @@
 import { useState, useCallback } from "react";
 import { AssetTransfersCategory } from "alchemy-sdk";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
-import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import InfiniteScroll from "react-infinite-scroller";
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 //FIXME - use the link component from next instead a component. it add
 // base path automatically
 
@@ -27,7 +27,7 @@ export default function AddressTransactionList({ addressNumber, from }: { addres
 		}
 		from ? body.fromAddress = addressNumber : body.toAddress = addressNumber
 		try {
-			const response = await alchemy.core.getAssetTransfers(body);
+			const response = await ethereumManager.getAlchemy().core.getAssetTransfers(body);
 			setItems(items.concat(response.transfers))
 			setPageKey(response.pageKey)
 		} catch (error) {

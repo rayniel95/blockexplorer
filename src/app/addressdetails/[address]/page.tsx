@@ -1,15 +1,13 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import List from "@/app/components/commons/Lists"
+import { useState, useEffect } from "react";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/app/components/commons/BlockItem";
-import { alchemy } from "@/src/stateManager/blockchainManager/ethereum";
 import { Utils } from "alchemy-sdk";
 import AddressBalance from "./components/AddressBalance";
 import AddressTransactionCount from "./components/AddressTransactionCount";
 import Link from "next/link";
 import * as settings from "@/src/settings";
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 
 const manager = new EthereumManager();
@@ -23,8 +21,8 @@ export default function AddressDetails({ params }: { params: { address: string }
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await alchemy.core.getBalance(address);
-				const transactionCount = await alchemy.core.getTransactionCount(address);
+				const response = await ethereumManager.getAlchemy().core.getBalance(address);
+				const transactionCount = await ethereumManager.getAlchemy().core.getTransactionCount(address);
 				setBalance(Utils.formatEther(response));
 				setTransactionCount(transactionCount);
 			} catch (error) {
