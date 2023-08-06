@@ -1,16 +1,19 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect } from "react";
 import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
 import { BlockItem } from "@/app/components/commons/BlockItem";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
+import { useAppSelector } from "@/src/stateManager/hooks";
 
 //TODO - Move all the managers to a singleton instance
+//TODO - add horizontal scroll to text in address, etc.
 const manager = new EthereumManager();
 export default function Home() {
 	const [blocks, setBlocks] = useState([]);
-
+	const network = useAppSelector((state) => state.network.newtork);
+	
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
