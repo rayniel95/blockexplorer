@@ -19,6 +19,7 @@ export class EthereumManager implements INetworkManager {
     }
     config(config: EthereumManagerConfig) {
         this.configProp = config;
+        this.alchemy = new Alchemy(this.configProp);
     }
     getApiKey(): string {
         return this.configProp.apiKey;
