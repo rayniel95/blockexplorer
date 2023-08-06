@@ -1,10 +1,10 @@
 'use client'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import { BlockWithTransactions, TransactionReceipt, TransactionResponse } from "alchemy-sdk";
-import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { TransactionResponse } from "alchemy-sdk";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
 export default function TransactionHash({ tx }: { tx: TransactionResponse }) {

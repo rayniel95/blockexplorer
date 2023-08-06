@@ -1,5 +1,3 @@
-import { actualBlock } from "@/src/stateManager/blockSlice"
-import { useAppDispatch } from "@/src/stateManager/hooks"
 import * as settings from "@/src/settings"
 import BlockNumber from "@/app/components/commons/block/BlockNumber"
 import BlockNumberOfTx from "@/app/components/commons/block/BlockNumberOfTx"
