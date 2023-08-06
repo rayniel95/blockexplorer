@@ -10,12 +10,18 @@ export interface EthereumManagerConfig{
 export class EthereumManager implements INetworkManager {
     configProp: EthereumManagerConfig;
     alchemy: Alchemy;
+    url: Record<Network, string>;
     constructor(config?: EthereumManagerConfig) {
         config? this.configProp = config : this.configProp = {
             apiKey: process.env.NEXT_PUBLIC_ETHEREUM_MAINNET_API_KEY,
             network: Network.ETH_MAINNET,
         };
         this.alchemy = new Alchemy(this.configProp);
+        //@ts-ignore
+        this.url = {
+            [Network.ETH_MAINNET]: `https://eth-mainnet.alchemyapi.io/v2`,
+            [Network.ETH_SEPOLIA]: `https://eth-sepolia.g.alchemy.com/v2`,
+        }
     }
     config(config: EthereumManagerConfig) {
         this.configProp = config;
@@ -42,7 +48,7 @@ export class EthereumManager implements INetworkManager {
         }
 
         const res = await fetch(
-            `${this.getAlchemy().config.url}/${this.getApiKey()}/`,
+            `${this.url[this.configProp.network]}/${this.getApiKey()}/`,
             { method: 'POST', body: JSON.stringify(reqs), headers: { 'Content-Type': 'application/json' } }
         )
         const result: Array<{ id: number }> = await res.json()
