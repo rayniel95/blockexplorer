@@ -33,10 +33,10 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
                   title="Network"
                   id="offCanvasNav"
                 >
-                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.ETHEREUM))}>
+                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.ETH_MAINNET))}>
                     Ethereum Mainnet
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.STARKNET))}>
+                  <NavDropdown.Item href="" onClick={(e) => dispatch(changeNetwork(Network.ETH_SEPOLIA))}>
                     Sepolia
                   </NavDropdown.Item>
                 </NavDropdown>
