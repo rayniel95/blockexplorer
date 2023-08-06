@@ -1,10 +1,8 @@
 import { Button, Container, Form, Nav, NavDropdown, Navbar, Offcanvas } from "react-bootstrap";
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { changeNetwork } from "@/src/stateManager/networkSlice";
-import { Network } from "@/src/stateManager/types";
+import { Network } from "alchemy-sdk";
 import { useAppDispatch } from "@/src/stateManager/hooks";
-import * as settings from "@/src/settings"
+import * as settings from "@/src/settings";
 
 
 export default function Header({ showOffcanvas }: { showOffcanvas: () => void }) {
