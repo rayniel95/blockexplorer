@@ -1,20 +1,15 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockWithTransactionData } from "ethereum-types";
 import { BlockWithTransactions } from "alchemy-sdk";
 import BlockNumber from "@/app/components/commons/block/BlockNumber";
 import BlockTimestamp from "@/app/components/commons/block/BlockTimestamp";
 import BlockNumberOfTx from "@/app/components/commons/block/BlockNumberOfTx";
 import BlockFeeRecipient from "@/app/components/commons/block/BlockFeeRecipient";
 import Link from "next/link";
-import * as settings from "@/src/settings"
-import BlockDifficulty from "@/app/components/commons/block/BlockDifficulty";
+import * as settings from "@/src/settings";
 import BlockGasUsed from "@/app/components/commons/block/BlockGasUsed";
 import BlockExtraData from "@/app/components/commons/block/BlockExtraData";
 import BlockHash from "@/app/components/commons/block/BlockHash";
-import BlockSize from "@/app/components/commons/block/BlockSize";
 //FIXME - use the link component from next instead a component. it add
 // base path automatically
 
