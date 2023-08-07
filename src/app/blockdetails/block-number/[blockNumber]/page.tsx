@@ -1,13 +1,9 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockWithTransactionData } from "ethereum-types";
+import { useState, useEffect } from "react";
 import { BlockWithTransactions } from "alchemy-sdk";
 import BlockDetails from "../../components/BlockDetails";
-
-
-const manager = new EthereumManager();
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum/index"
 
 
 export default function BlockNumberDetails({params}: {params:{blockNumber:string}}) {
@@ -18,7 +14,7 @@ export default function BlockNumberDetails({params}: {params:{blockNumber:string
 		const fetchData = async () => {
 			try {
 				//TODO - add loading item to items that read from network
-				const response = (await manager.getBlocks(blockNumber, blockNumber+1))[0].result;
+				const response = (await ethereumManager.getBlocks(blockNumber, blockNumber+1))[0].result;
 				setBlock(response);
 			} catch (error) {
 				console.error('Error:', error);
