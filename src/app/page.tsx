@@ -6,10 +6,11 @@ import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/e
 import { BlockItem } from "@/app/components/commons/BlockItem";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import { useAppSelector } from "@/src/stateManager/hooks";
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 //TODO - Move all the managers to a singleton instance
 //TODO - add horizontal scroll to text in address, etc.
-const manager = new EthereumManager();
+// const manager = new EthereumManager();
 export default function Home() {
 	const [blocks, setBlocks] = useState([]);
 	const network = useAppSelector((state) => state.network.newtork);
@@ -17,7 +18,7 @@ export default function Home() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await manager.getBlocksFromNegativeIndex(0, 5)
+				const response = await ethereumManager.getBlocksFromNegativeIndex(0, 5)
 				setBlocks(response);
 			} catch (error) {
 				console.error('Error:', error);
@@ -33,7 +34,7 @@ export default function Home() {
 		return () => {
 			clearInterval(intervalId);
 		};
-	});
+	}, [network]);
 
 	return (
 		<Container fluid>
@@ -52,7 +53,7 @@ export default function Home() {
 				<Col>
 					<ListGroup>
 						{
-							manager.extractLatestsTransactions(blocks, 5).map((tx, index) => {
+							ethereumManager.extractLatestsTransactions(blocks, 5).map((tx, index) => {
 								return (
 									<ListGroup.Item key={index}>
 										<TransactionItem item={tx} />
