@@ -8,14 +8,13 @@ import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import { useAppSelector } from "@/src/stateManager/hooks";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
-//TODO - Move all the managers to a singleton instance
 //TODO - add horizontal scroll to text in address, etc.
-// const manager = new EthereumManager();
 export default function Home() {
 	const [blocks, setBlocks] = useState([]);
 	const network = useAppSelector((state) => state.network.newtork);
 	
 	useEffect(() => {
+		ethereumManager.config(network);
 		const fetchData = async () => {
 			try {
 				const response = await ethereumManager.getBlocksFromNegativeIndex(0, 5)
