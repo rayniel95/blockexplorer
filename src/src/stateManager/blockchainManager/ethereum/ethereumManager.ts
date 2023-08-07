@@ -23,13 +23,13 @@ export class EthereumManager implements INetworkManager {
             network: network 
         });
     }
-    config(network: Network, networkData: Record<Network, NetworkConfig>){ 
+    config(network: Network, networkData?: Record<Network, NetworkConfig>){ 
+        this.networkData = networkData || this.networkData;
         this.alchemy = new Alchemy({ 
-            apiKey: networkData[network].apiKey,
+            apiKey: this.networkData[network].apiKey,
             network: network 
         });
         this.network = network;
-        this.networkData = networkData;
     }
     getApiKey(): string {
         return this.networkData[this.network].apiKey;
