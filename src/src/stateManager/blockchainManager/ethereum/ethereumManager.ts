@@ -7,34 +7,41 @@ export interface EthereumManagerConfig{
     network: Network;
 }
 
+export interface NetworkConfig{
+    apiKey: string;
+    networkUrl: string;
+}
+
 export class EthereumManager implements INetworkManager {
-    configProp: EthereumManagerConfig;
     alchemy: Alchemy;
-    url: Record<Network, string>;
-    constructor(config?: EthereumManagerConfig) {
-        config? this.configProp = config : this.configProp = {
-            apiKey: process.env.NEXT_PUBLIC_ETHEREUM_MAINNET_API_KEY,
-            network: Network.ETH_MAINNET,
-        };
-        this.alchemy = new Alchemy(this.configProp);
-        //@ts-ignore
-        this.url = {
-            [Network.ETH_MAINNET]: `https://eth-mainnet.alchemyapi.io/v2`,
-            [Network.ETH_SEPOLIA]: `https://eth-sepolia.g.alchemy.com/v2`,
-        }
+    constructor(
+        public network: Network, 
+        public networkData: Record<Network, NetworkConfig>
+    ){
+        this.alchemy = new Alchemy({ 
+            apiKey: networkData[network].apiKey,
+            network: network 
+        });
     }
-    config(config: EthereumManagerConfig) {
-        this.configProp = config;
-        this.alchemy = new Alchemy(this.configProp);
+    config(network: Network, networkData: Record<Network, NetworkConfig>){ 
+        this.alchemy = new Alchemy({ 
+            apiKey: networkData[network].apiKey,
+            network: network 
+        });
+        this.network = network;
+        this.networkData = networkData;
     }
     getApiKey(): string {
-        return this.configProp.apiKey;
+        return this.networkData[this.network].apiKey;
     }
     getAlchemy(): Alchemy {
         return this.alchemy;
     }
-    getNetwork(): Network {
-        return this.configProp.network;
+    getNetworkUrl(): string {
+        return this.networkData[this.network].networkUrl;
+    }
+    getNetwork(): string {
+        return this.network;
     }
     async getBlocks(start: number, end: number): Promise<Array<any>> {
         const reqs = []
@@ -48,7 +55,7 @@ export class EthereumManager implements INetworkManager {
         }
 
         const res = await fetch(
-            `${this.url[this.configProp.network]}/${this.getApiKey()}/`,
+            `${this.getNetworkUrl()}/${this.getApiKey()}/`,
             { method: 'POST', body: JSON.stringify(reqs), headers: { 'Content-Type': 'application/json' } }
         )
         const result: Array<{ id: number }> = await res.json()
