@@ -1,14 +1,12 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import List from "../../../components/commons/Lists";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockItem } from "@/app/components/commons/BlockItem";
-import BlockNumber from "@/app/components/commons/block/BlockNumber";
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 import { BlockWithTransactions, TransactionResponse } from "alchemy-sdk";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
 
-const manager = new EthereumManager();
+
 const itemsPerPage = 10
 
 function transactionController(transactions: TransactionResponse[], itemsPerPage: number, pageNumber: number): TransactionResponse[] {
@@ -32,7 +30,7 @@ export default function TransactionList({params}: {params: {blockNumber: string}
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response: BlockWithTransactions = (await manager.getBlocks(blockNumber, blockNumber+1))[0].result
+				const response: BlockWithTransactions = (await ethereumManager.getBlocks(blockNumber, blockNumber+1))[0].result
 				const reverseTransactions = response.transactions.reverse()
 				setItemsCount(response.transactions.length)
 				setTransactions(reverseTransactions)
