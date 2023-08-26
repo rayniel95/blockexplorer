@@ -63,7 +63,7 @@ export function Searcher() {
             {!isValidSearch && <Form.Text className="text-muted">
                 It is a not a valid address, hash or block number.
             </Form.Text>}
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success" type="submit">Search</Button>
         </Form>
     )
 }
