@@ -92,7 +92,7 @@ export class EthereumManager implements INetworkManager {
     extractLatestsTransactions(blocks: Array<any>, cantity: number): Array<any> {
         const transactions = []
         for (const block of blocks) {
-            transactions.push(...block.result.transactions)
+            block.result && transactions.push(...block.result.transactions)
         }
         return transactions.slice(0, cantity)
     }
