@@ -10,8 +10,6 @@ import * as settings from "@/src/settings";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 
-const manager = new EthereumManager();
-
 export default function AddressDetails({ params }: { params: { address: string } }) {
 	const [balance, setBalance] = useState("");
 	const [transactionCount, setTransactionCount] = useState(0);

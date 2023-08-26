@@ -1,12 +1,9 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
 import { TransactionResponse } from "alchemy-sdk";
 import TransactionDetails from "./components/TransactionDetails";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
-
-const manager = new EthereumManager();
 
 
 export default function TransactionBlockHashDetails({params}: {params:{transactionHash:string}}) {
