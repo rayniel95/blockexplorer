@@ -1,21 +1,20 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
-import { BlockWithTransactionData } from "ethereum-types";
+import { useState, useEffect } from "react";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
+import { BlockWithTransactions } from "alchemy-sdk";
+import BlockDetails from "../../components/BlockDetails";
 
 
-//TODO - this is not finished yet
-export default function BlockDetails({params}: {params:{blockNumber:string}}) {
-	const [block, setBlock] = useState<BlockWithTransactionData>({} as BlockWithTransactionData);
-	const blockNumber = parseInt(params.blockNumber);
+export default function BlockHashDetails({params}: {params:{blockHash:string}}) {
+	const [block, setBlock] = useState<BlockWithTransactions>({} as BlockWithTransactions);
+	const blockHash = params.blockHash;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				//TODO - add loading item to items that read from network
-				const response = (await ethereumManager.getBlocks(blockNumber, blockNumber+1))[0]
+				const response = await ethereumManager.alchemy.core.getBlockWithTransactions(blockHash)
 				setBlock(response);
 			} catch (error) {
 				console.error('Error:', error);
@@ -28,9 +27,7 @@ export default function BlockDetails({params}: {params:{blockNumber:string}}) {
 
 	return (
 		<div>
-			here are the block {blockNumber} details
-
-			<p>{JSON.stringify(block)}</p>
+			{block.number && <BlockDetails block={block} />}
 		</div>
 	);
 }
