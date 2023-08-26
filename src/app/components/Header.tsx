@@ -4,6 +4,7 @@ import { Network } from "alchemy-sdk";
 import { useAppDispatch, useAppSelector } from "@/src/stateManager/hooks";
 import * as settings from "@/src/settings";
 import { NetworkSwitcher } from "./commons/header/NetworkSwitcher";
+import { Searcher } from "./commons/header/Searcher";
 
 
 export default function Header({ showOffcanvas }: { showOffcanvas: () => void }) {
@@ -43,15 +44,7 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
                 <Nav.Link href={`${settings.BASE_PATH}`}>Home</Nav.Link>
                 <NetworkSwitcher id="offCanvasNav" actionForNetwork={actionsForNetwork} defaultNetwork={networkToNetworkName[network]} />
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
+            <Searcher />
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
