@@ -1,5 +1,7 @@
 'use client'
 
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 
@@ -24,16 +26,29 @@ function checkBlockNumber(input: string):boolean{
 export function Searcher() {
     const [isValidSearch, setIsValidSearch] = useState(true)
     const [input, setInput] = useState('')
+    const router = useRouter()
 
     function search(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
         if (checkValidHash(input)) {
             setIsValidSearch(true)
+            ethereumManager.alchemy.core.getBlock(input).then(
+                (block) => {
+                    router.push(`/blockdetails/block-hash/${input}`)
+                }
+            )
+            ethereumManager.alchemy.core.getTransaction(input).then(
+                (transaction) => {
+                    router.push(`/transactiondetails/transaction-hash/${input}`)
+                }
+            )
         } else if (checkAddress(input)) {
             setIsValidSearch(true)
+            router.push(`/addressdetails/${input}`)
         } else if (checkBlockNumber(input)) {
             setIsValidSearch(true)
+            router.push(`/blockdetails/block-number/${input}`)
         } else {
             setIsValidSearch(false)
         }
