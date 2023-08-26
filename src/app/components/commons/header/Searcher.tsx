@@ -1,7 +1,7 @@
 'use client'
 
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 
