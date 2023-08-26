@@ -3,7 +3,7 @@
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Col, Container, Form, Row } from "react-bootstrap"
 
 
 function checkValidHash(input: string): boolean {
@@ -14,7 +14,7 @@ function checkAddress(input: string): boolean {
     return /^0x[a-fA-F0-9]{40}$/.test(input)
 }
 
-function checkBlockNumber(input: string):boolean{
+function checkBlockNumber(input: string): boolean {
     return /^\d+$/.test(input)
 }
 
@@ -26,11 +26,11 @@ export function Searcher() {
 
     function search(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        
+
         if (checkValidHash(input)) {
             setIsValidSearch(true)
             ethereumManager.alchemy.core.getBlock(input).then(
-                (block) => {                    
+                (block) => {
                     block && router.push(`/blockdetails/block-hash/${input}`)
                 }
             )
@@ -52,18 +52,36 @@ export function Searcher() {
 
     return (
         <Form className="d-flex" onSubmit={search}>
-            <Form.Control
-                type="search"
-                placeholder="tx hash/address/block number/block hash"
-                className="me-2"
-                aria-label="search"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-            />
-            {!isValidSearch && <Form.Text className="text-muted">
-                It is a not a valid address, hash or block number.
-            </Form.Text>}
-            <Button variant="outline-success" type="submit">Search</Button>
-        </Form>
+            <Container className="">
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Row>
+                                <Col>
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="tx hash/address/block number/block hash"
+                                        className="me-2"
+                                        aria-label="search"
+                                        value={input}
+                                        onChange={(e) => setInput(e.target.value)}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    {!isValidSearch && <Form.Text className="text-muted">
+                                        It is a not a valid address, hash or block number.
+                                    </Form.Text>}
+                                </Col>
+                            </Row>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Button variant="outline-success" type="submit">Search</Button>
+                    </Col>
+                </Row>
+            </Container>
+        </Form >
     )
 }
