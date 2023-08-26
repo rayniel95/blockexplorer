@@ -1,18 +1,17 @@
 'use client'
 
-import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import List from "../components/commons/Lists";
-import { EthereumManager } from "@/src/stateManager/blockchainManager/ethereum/ethereumManager";
+import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 import { BlockItem } from "@/app/components/commons/BlockItem";
 
 
-const manager = new EthereumManager();
 const itemsPerPage = 10
 
 async function blockController(itemsPerPage: number, pageNumber: number): Promise<{ itemsPerPage: number; elementProps: any[]; itemsCount: number }> {
-	const items = await manager.getLatestBlocks(1)
+	const items = await ethereumManager.getLatestBlocks(1)
 	const itemsCount = parseInt(items[0].result.number, 16)
-	const elementProps = await manager.getBlocksFromNegativeIndex(
+	const elementProps = await ethereumManager.getBlocksFromNegativeIndex(
 		pageNumber * itemsPerPage,
 		pageNumber * itemsPerPage + itemsPerPage
 	);
