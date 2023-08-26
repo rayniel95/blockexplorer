@@ -10,10 +10,6 @@ function checkValidHash(input: string): boolean {
     return /^0x([A-Fa-f0-9]{64})$/.test(input)
 }
 
-// function checkBlockAddress(input: string): boolean{
-//     return /^0x([A-Fa-f0-9]{64})$/.test(input)
-// }
-
 function checkAddress(input: string): boolean {
     return /^0x[a-fA-F0-9]{40}$/.test(input)
 }
