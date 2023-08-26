@@ -26,17 +26,17 @@ export function Searcher() {
 
     function search(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-
+        
         if (checkValidHash(input)) {
             setIsValidSearch(true)
             ethereumManager.alchemy.core.getBlock(input).then(
-                (block) => {
-                    router.push(`/blockdetails/block-hash/${input}`)
+                (block) => {                    
+                    block && router.push(`/blockdetails/block-hash/${input}`)
                 }
             )
             ethereumManager.alchemy.core.getTransaction(input).then(
                 (transaction) => {
-                    router.push(`/transactiondetails/transaction-hash/${input}`)
+                    transaction && router.push(`/transactiondetails/transaction-hash/${input}`)
                 }
             )
         } else if (checkAddress(input)) {
