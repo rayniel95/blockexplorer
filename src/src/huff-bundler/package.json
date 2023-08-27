@@ -1,0 +1,35 @@
+{
+  "name": "huffc-js",
+  "collaborators": [
+    "refcell",
+    "clabby",
+    "exp.table",
+    "kanewallmann"
+  ],
+  "description": "Wasm Core Compiler Crate for the Huff-Language\n",
+  "version": "0.3.2",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huff-language/huff-rs/"
+  },
+  "files": [
+    "huffc_bg.wasm",
+    "huffc.js",
+    "huffc_bg.js",
+    "huffc.d.ts"
+  ],
+  "module": "huffc.js",
+  "types": "huffc.d.ts",
+  "sideEffects": [
+    "./huffc.js",
+    "./snippets/*"
+  ],
+  "keywords": [
+    "huff",
+    "rust",
+    "evm",
+    "bytecode",
+    "compiler"
+  ]
+}
