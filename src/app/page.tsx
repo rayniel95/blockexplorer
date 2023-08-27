@@ -6,7 +6,7 @@ import { BlockItem } from "@/app/components/commons/BlockItem";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import { useAppSelector } from "@/src/stateManager/hooks";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
-import { compile } from "../huff-bundler"
+import { compile } from "../src/huff-bundler/huffc"
 
 
 //TODO - add horizontal scroll to text in address, etc.
