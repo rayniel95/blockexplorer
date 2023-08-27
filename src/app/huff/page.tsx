@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect} from 'react'
+import { Button, Container, Form } from 'react-bootstrap'
 
 let files = {
 	"add.huff": "#define function add(uint256,uint256) nonpayable returns (uint256)\n" +
@@ -30,9 +31,20 @@ export default function Index() {
 	}, [])
 
 	return (
-		<div>
-			Our WASM component:
-		</div>
+		<Container>
+			<h5>Huff Verifier</h5>
+			<Form>
+				<Form.Group className="mb-3">
+					<Form.Label>Address</Form.Label>
+					<Form.Control type="text" />
+				</Form.Group>
+				<Form.Group className="mb-3">
+					<Form.Label>Contract code</Form.Label>
+					<Form.Control as={'textarea'} />
+				</Form.Group>
+				<Button variant="primary" type='submit'>Verify</Button>
+			</Form>
+		</Container>
 	)
 }
 
