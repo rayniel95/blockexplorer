@@ -21,7 +21,6 @@ export default function Index() {
 	useEffect(() => {
 		async function fetchModule(){
 			const {compile} = await import("../../src/huff-bundler/huffc")
-			//@ts-ignore
 			console.log(compile({
 				files,
 				sources: ['add.huff']

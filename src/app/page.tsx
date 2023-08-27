@@ -6,7 +6,6 @@ import { BlockItem } from "@/app/components/commons/BlockItem";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import { useAppSelector } from "@/src/stateManager/hooks";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
-import { compile } from "../src/huff-bundler/huffc"
 
 
 //TODO - add horizontal scroll to text in address, etc.
@@ -28,13 +27,6 @@ export default function Home() {
 			"   0x20 0x00 return // Return it.\n" +
 			"}\n"
 	}
-
-	const result = compile({
-		files,
-		sources: ['add.huff']
-	});
-
-	console.log(result)
 
 	// useEffect(() => {
 	// 	ethereumManager.config(network);
