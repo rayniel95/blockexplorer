@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 
 let files = {
@@ -19,40 +19,56 @@ let files = {
 
 /*
   const huffFileName = 'main.huff'
-        const compiledHuff = compile({
-          files: {
-            [huffFileName]: code,
-          },
-          sources: [huffFileName],
-        })
-        const { bytecode } = compiledHuff.contracts.get(huffFileName)
-        loadInstructions(bytecode)
-        startExecution(bytecode, _callValue, _callData)
+		const compiledHuff = compile({
+		  files: {
+			[huffFileName]: code,
+		  },
+		  sources: [huffFileName],
+		})
+		const { bytecode } = compiledHuff.contracts.get(huffFileName)
+		loadInstructions(bytecode)
+		startExecution(bytecode, _callValue, _callData)
 */
+const huffFileName = 'main.huff'
 
 export default function HuffVerifier() {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
-			const {compile} = await import("../../src/huff-bundler/huffc")
-			console.log(compile({
-				files,
-				sources: ['add.huff']
-			}))
+	const [bytecode, setBytecode] = useState('')
+
+	function verify(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+		//TODO - extract this to a separate function that lazy load in the 
+		// main module with the app loading and define the compile function.
+		// this loading constantly is not efficient
+		async function compile() {
+			const { compile } = await import("../../src/huff-bundler/huffc")
+			const compiledHuff = compile({
+				files: {
+					[huffFileName]: code,
+				},
+				sources: [huffFileName],
+			})
+			console.log(compiledHuff)
 		}
-		fetchModule()
-	}, [])
+		compile()
+		console.log(code)
+	}
 
 	return (
 		<Container>
 			<h5>Huff Verifier</h5>
 			<Form>
-				<Form.Group className="mb-3">
+				<Form.Group className="mb-3" onSubmit={verify}>
 					<Form.Label>Address</Form.Label>
-					<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)}/>
+					<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
 				</Form.Group>
 				<Form.Group className="mb-3">
 					<Form.Label>Contract code</Form.Label>
-					<Form.Control as={'textarea'} value={code} onChange={(e) => setCode(e.target.value)}/>
+					<Form.Control as={'textarea'} value={code} onChange={(e) => setCode(e.target.value)} />
+				</Form.Group>
+				<Form.Group>
+					<Form.Text>Compiled contract: {bytecode}</Form.Text>
 				</Form.Group>
 				<Button variant="primary" type='submit'>Verify</Button>
 			</Form>
