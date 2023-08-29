@@ -52,14 +52,13 @@ export default function HuffVerifier() {
 			console.log(compiledHuff)
 		}
 		compile()
-		console.log(code)
 	}
 
 	return (
 		<Container>
 			<h5>Huff Verifier</h5>
-			<Form>
-				<Form.Group className="mb-3" onSubmit={verify}>
+			<Form onSubmit={verify}>
+				<Form.Group className="mb-3">
 					<Form.Label>Address</Form.Label>
 					<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
 				</Form.Group>
