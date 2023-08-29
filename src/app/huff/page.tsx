@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 
 let files = {
@@ -17,10 +17,22 @@ let files = {
 		"}\n"
 }
 
-export default function Index() {
+/*
+  const huffFileName = 'main.huff'
+        const compiledHuff = compile({
+          files: {
+            [huffFileName]: code,
+          },
+          sources: [huffFileName],
+        })
+        const { bytecode } = compiledHuff.contracts.get(huffFileName)
+        loadInstructions(bytecode)
+        startExecution(bytecode, _callValue, _callData)
+*/
 
-	useEffect(() => {
-		async function fetchModule(){
+export default function HuffVerifier() {
+	const [code, setCode] = useState('')
+	const [address, setAddress] = useState('')
 			const {compile} = await import("../../src/huff-bundler/huffc")
 			console.log(compile({
 				files,
@@ -36,11 +48,11 @@ export default function Index() {
 			<Form>
 				<Form.Group className="mb-3">
 					<Form.Label>Address</Form.Label>
-					<Form.Control type="text" />
+					<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)}/>
 				</Form.Group>
 				<Form.Group className="mb-3">
 					<Form.Label>Contract code</Form.Label>
-					<Form.Control as={'textarea'} />
+					<Form.Control as={'textarea'} value={code} onChange={(e) => setCode(e.target.value)}/>
 				</Form.Group>
 				<Button variant="primary" type='submit'>Verify</Button>
 			</Form>
