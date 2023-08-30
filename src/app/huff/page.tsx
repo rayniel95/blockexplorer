@@ -29,6 +29,15 @@ let files = {
 		loadInstructions(bytecode)
 		startExecution(bytecode, _callValue, _callData)
 */
+
+let compile: any = undefined
+async function loadCompile() {
+	const huffc = await import("../../src/huff-bundler/huffc")
+	compile = huffc.compile
+}
+
+loadCompile()
+
 const huffFileName = 'main.huff'
 
 export default function HuffVerifier() {
@@ -38,20 +47,13 @@ export default function HuffVerifier() {
 
 	function verify(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
-		//TODO - extract this to a separate function that lazy load in the 
-		// main module with the app loading and define the compile function.
-		// this loading constantly is not efficient
-		async function compile() {
-			const { compile } = await import("../../src/huff-bundler/huffc")
-			const compiledHuff = compile({
-				files: {
-					[huffFileName]: code,
-				},
-				sources: [huffFileName],
-			})
-			console.log(compiledHuff)
-		}
-		compile()
+		const compiledHuff = compile({
+			files: {
+				[huffFileName]: code,
+			},
+			sources: [huffFileName],
+		})
+		console.log(compiledHuff)
 	}
 
 	return (
