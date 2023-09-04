@@ -1,7 +1,8 @@
 'use client'
 
+import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useState } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 /*
 #define function add(uint256,uint256) nonpayable returns (uint256)
@@ -28,21 +29,34 @@ const huffFileName = 'main.huff'
 export default function HuffVerifier() {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
+	const [addressBlock, setAddressBlock] = useState('')
+	const [match, setMatch] = useState("match")
 	const [bytecode, setBytecode] = useState('')
 	const [error, setError] = useState('')
 
 	function verify(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
-		try{
-			const compiledHuff = compile({
-				files: {
-					[huffFileName]: code,
-				},
-				sources: [huffFileName],
+		try {
+			Promise.all([
+				ethereumManager.alchemy.core.getCode(address, parseInt(addressBlock)),
+				new Promise((resolve, reject) => {
+					const compiledHuff = compile({
+						files: {
+							[huffFileName]: code,
+						},
+						sources: [huffFileName],
+					})
+					setBytecode(compiledHuff.contracts.get(huffFileName).bytecode)
+				}),
+			]).then((values) => {
+				if (values[0] === '0x'){
+					setError('Invalid address')
+					return
+				}
+				values[0].search(bytecode)? setMatch("match") : setMatch("no match")
 			})
-			setBytecode(compiledHuff.contracts.get(huffFileName).bytecode)
 		}
-		catch (e){
+		catch (e) {
 			console.log(e)
 			setError(e.errors)
 		}
@@ -53,16 +67,24 @@ export default function HuffVerifier() {
 			<h5>Huff Verifier</h5>
 			<Form onSubmit={verify}>
 				<Form.Group className="mb-3">
-					<Form.Label>Address</Form.Label>
-					<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+					<Row>
+						<Col>
+							<Form.Label>Address</Form.Label>
+							<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+						</Col>
+						<Col>
+							<Form.Label>At block</Form.Label>
+							<Form.Control type="text" value={addressBlock} onChange={(e) => setAddressBlock(e.target.value)} />
+						</Col>
+					</Row>
 				</Form.Group>
 				<Form.Group className="mb-3">
 					<Form.Label>Contract code</Form.Label>
-					<Form.Control as={'textarea'} value={code} onChange={(e) => {setError(''); setBytecode(''); setCode(e.target.value)}} />
+					<Form.Control as={'textarea'} value={code} onChange={(e) => { setError(''); setBytecode(''); setCode(e.target.value) }} />
 				</Form.Group>
 				<Form.Group>
 					{
-						error? <Form.Text>{error}</Form.Text>: <Form.Text>Compiled contract: {bytecode}</Form.Text>
+						error ? <Form.Text>{error}</Form.Text> : <Form.Text>{match}, compiled contract: {bytecode}</Form.Text>
 					}
 				</Form.Group>
 				<Button variant="primary" type='submit'>Verify</Button>
