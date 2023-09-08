@@ -1,21 +1,11 @@
 'use client'
 
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
+import { useAppSelector } from '@/src/stateManager/hooks'
 import { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
-/*
-#define function add(uint256,uint256) nonpayable returns (uint256)
-	#define macro MAIN() = {
-	// Load our numbers from calldata and add them together.
-	   0x04 calldataload // [number1]
-	   0x24 calldataload // [number2]
-	   add               // [number1+number2]
-	   // Return our new number.\n" +
-	   0x00 mstore // Store our number in memory.
-		0x20 0x00 return // Return it.
-	}
-*/
+
 let compile: any = undefined
 async function loadCompile() {
 	const huffc = await import("../../src/huff-bundler/huffc")
@@ -25,20 +15,25 @@ async function loadCompile() {
 loadCompile()
 
 const huffFileName = 'main.huff'
-
+//TODO - split this in two components or use a component state machine
 export default function HuffVerifier() {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
 	const [addressBlock, setAddressBlock] = useState('')
-	const [match, setMatch] = useState("match")
+	const [match, setMatch] = useState("")
 	const [bytecode, setBytecode] = useState('')
 	const [error, setError] = useState('')
+	const network = useAppSelector((state) => state.network.newtork);
+
 
 	function verify(e: React.FormEvent<HTMLFormElement>) {
+		ethereumManager.config(network)
 		e.preventDefault()
 		try {
 			Promise.all([
-				ethereumManager.alchemy.core.getCode(address, parseInt(addressBlock)),
+				new Promise((resolve, reject) => {
+					resolve(ethereumManager.alchemy.core.getCode(address))
+				}),
 				new Promise((resolve, reject) => {
 					const compiledHuff = compile({
 						files: {
@@ -46,14 +41,21 @@ export default function HuffVerifier() {
 						},
 						sources: [huffFileName],
 					})
-					setBytecode(compiledHuff.contracts.get(huffFileName).bytecode)
+					console.log(compiledHuff)
+					resolve(compiledHuff)
 				}),
-			]).then((values) => {
+			]).then((values: [string, any]) => {
+				console.log(values[0])
 				if (values[0] === '0x'){
 					setError('Invalid address')
+					setMatch("")
 					return
 				}
-				values[0].search(bytecode)? setMatch("match") : setMatch("no match")
+				setError('')
+				setBytecode(values[1].contracts.get(huffFileName).runtime)
+				console.log(bytecode)
+				console.log(values[0].search(bytecode))
+				values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1? setMatch("match") : setMatch("no match")
 			})
 		}
 		catch (e) {
@@ -72,7 +74,7 @@ export default function HuffVerifier() {
 							<Form.Label>Address</Form.Label>
 							<Form.Control type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
 						</Col>
-						<Col>
+						<Col xs={2}>
 							<Form.Label>At block</Form.Label>
 							<Form.Control type="text" value={addressBlock} onChange={(e) => setAddressBlock(e.target.value)} />
 						</Col>
@@ -80,7 +82,7 @@ export default function HuffVerifier() {
 				</Form.Group>
 				<Form.Group className="mb-3">
 					<Form.Label>Contract code</Form.Label>
-					<Form.Control as={'textarea'} value={code} onChange={(e) => { setError(''); setBytecode(''); setCode(e.target.value) }} />
+					<Form.Control as={'textarea'} value={code} onChange={(e) => { setError(''); setBytecode(''); setMatch(""); setCode(e.target.value) }} />
 				</Form.Group>
 				<Form.Group>
 					{
