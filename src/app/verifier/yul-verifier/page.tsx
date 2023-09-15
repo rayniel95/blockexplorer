@@ -7,16 +7,22 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 
 let compile: any = undefined
-async function loadCompile() {
-	const huffc = await import("../../../src/huff-bundler/huffc")
-	compile = huffc.compile
-}
+// async function loadCompile() {
+// 	const huffc = await import("../../../src/huff-bundler/huffc")
+// 	compile = huffc.compile
+// }
 
-loadCompile()
+// loadCompile()
 //TODO - merge all verifers in a single page
-const huffFileName = 'main.huff'
 //TODO - split this in two components or use a component state machine
-export default function HuffVerifier() {
+export default function YulVerifier() {
+	const [code, setCode] = useState('')
+	const [address, setAddress] = useState('')
+	const [addressBlock, setAddressBlock] = useState('')
+	const [match, setMatch] = useState("")
+	const [bytecode, setBytecode] = useState('')
+	const [error, setError] = useState('')
+	const network = useAppSelector((state) => state.network.newtork);
 
 
 	function verify(e: React.FormEvent<HTMLFormElement>) {

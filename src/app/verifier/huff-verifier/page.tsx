@@ -5,7 +5,7 @@ import { useAppSelector } from '@/src/stateManager/hooks'
 import { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
-
+//TODO - use script component to load the wasm
 let compile: any = undefined
 async function loadCompile() {
 	const huffc = await import("../../../src/huff-bundler/huffc")
