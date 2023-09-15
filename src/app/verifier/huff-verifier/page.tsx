@@ -8,12 +8,12 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 let compile: any = undefined
 async function loadCompile() {
-	const huffc = await import("../../src/huff-bundler/huffc")
+	const huffc = await import("../../../src/huff-bundler/huffc")
 	compile = huffc.compile
 }
 
 loadCompile()
-
+//TODO - merge all verifers in a single page
 const huffFileName = 'main.huff'
 //TODO - split this in two components or use a component state machine
 export default function HuffVerifier() {
