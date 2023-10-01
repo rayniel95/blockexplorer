@@ -7,16 +7,8 @@ import { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 
-let compile: any = undefined
-// async function loadCompile() {
-// 	const huffc = await import("../../../src/huff-bundler/huffc")
-// 	compile = huffc.compile
-// }
-
-// loadCompile()
 //TODO - merge all verifers in a single page
 //TODO - split this in two components or use a component state machine
-//TODO - use script component to load wasm
 export default function YulVerifier() {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
@@ -33,15 +25,6 @@ export default function YulVerifier() {
 
 	return (
 		<Container>
-			<Script 
-				src='https://binaries.soliditylang.org/bin/soljson-v0.8.11+commit.d7f03943.js'
-				onError={(e) => {
-					console.log(e)
-				}}
-				onLoad={() => {
-					console.log("loaded")
-				}}
-			/>
 			<h5>Yul Verifier</h5>
 			<Form onSubmit={verify}>
 				<Form.Group className="mb-3">
