@@ -3,10 +3,10 @@ importScripts(`https://binaries.soliditylang.org/bin/soljson-v0.8.17+commit.8df4
 var assert = require('assert')
 
 // Code extracted from https://github.com/ethereum/solc-js/blob/{compilerVersion}/wrapper.js
-const alloc = cwrap('solidity_alloc', 'number', ['number'])
-const copyFromCString = UTF8ToString
-const reset = cwrap('solidity_reset', null, [])
-const solidityCompile = cwrap('solidity_compile', 'string', [
+let alloc = cwrap('solidity_alloc', 'number', ['number'])
+let copyFromCString = UTF8ToString
+let reset = cwrap('solidity_reset', null, [])
+let solidityCompile = cwrap('solidity_compile', 'string', [
   'string',
   'number',
   'number',
@@ -153,6 +153,17 @@ onmessage = function (e) {
     postMessage({ error: 'The source should not be empty' })
     return
   }
+
+  importScripts(`https://binaries.soliditylang.org/bin/soljson-${e.data.solcVersion}.js`)
+
+  alloc = cwrap('solidity_alloc', 'number', ['number'])
+  copyFromCString = UTF8ToString
+  reset = cwrap('solidity_reset', null, [])
+  solidityCompile = cwrap('solidity_compile', 'string', [
+    'string',
+    'number',
+    'number',
+  ])
 
   input.language = e.data.language
   input.sources.web.content = e.data.source
