@@ -3,15 +3,17 @@
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
 import Script from 'next/script'
-import { useCallback, useRef, useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
 import CompileInfo from '../components/CompileInfo'
 import VerifierForm from '../components/VerifierForm'
 
-
+export interface SolcVerifierProps {
+	language: "Solidity" | "Yul"
+}
 //TODO - merge all verifers in a single page
 //TODO - split this in two components or use a component state machine
-export default function YulVerifier() {
+export default function SolcVerifier({ language }: SolcVerifierProps) {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
 	const [addressBlock, setAddressBlock] = useState('')
