@@ -72,7 +72,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 			new URL('../../lib/solcWorker.js', import.meta.url),
 		)
 		solcWorkerRef.current.onmessage = handleWorkerMessage
-		log('Solidity compiler loaded')
+		console.log('Solidity compiler loaded')
 
 		return () => {
 			if (solcWorkerRef?.current) {
