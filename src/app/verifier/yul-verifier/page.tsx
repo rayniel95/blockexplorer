@@ -23,41 +23,38 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	const handleWorkerMessage = useCallback(
 		(event: MessageEvent) => {
 			const { warning, error, contracts } = event.data
-			resetExecution()
-			setContract(undefined)
 
 			if (error) {
-				log(error, 'error')
-				setIsCompiling(false)
+				console.log(error, 'error')
 				return
 			}
 
 			if (warning) {
-				log(warning, 'warn')
+				console.log(warning, 'warn')
 			}
 
-			log('Compilation successful')
+			console.log('Compilation successful')
 
 			if (contracts.length > 1) {
-				setIsCompiling(false)
-				log(
+				// setIsCompiling(false)
+				console.log(
 					'The source should contain only one contract, Please select one to deploy.',
 					'error',
 				)
 				return
 			}
+			console.log(contracts)
+			// if (codeType === CodeType.Solidity) {
+			// 	setContract(contracts[0])
+			// }
 
-			if (codeType === CodeType.Solidity) {
-				setContract(contracts[0])
-			}
-
-			if (!isExpanded) {
-				deployByteCode(contracts[0].code, '', undefined)
-			} else {
-				setIsCompiling(false)
-			}
+			// if (!isExpanded) {
+			// 	deployByteCode(contracts[0].code, '', undefined)
+			// } else {
+			// 	setIsCompiling(false)
+			// }
 		},
-		[resetExecution, log, codeType, isExpanded, deployByteCode],
+		[],
 	)
 
 	useEffect(() => {
