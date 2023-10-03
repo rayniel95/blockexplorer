@@ -14,10 +14,7 @@ export interface SolcVerifierProps {
 //TODO - merge all verifers in a single page
 //TODO - split this in two components or use a component state machine
 export default function SolcVerifier({ language }: SolcVerifierProps) {
-	const [code, setCode] = useState('')
-	const [address, setAddress] = useState('')
-	const [addressBlock, setAddressBlock] = useState('')
-	const [match, setMatch] = useState("")
+	const [match, setMatch] = useState(false)
 	const [bytecode, setBytecode] = useState('')
 	const [error, setError] = useState('')
 	const network = useAppSelector((state) => state.network.newtork);
@@ -86,7 +83,41 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	}, [])
 
 	function verify(e: React.FormEvent<HTMLFormElement>) {
+		ethereumManager.config(network)
 		e.preventDefault()
+		try {
+			Promise.all([
+				new Promise((resolve, reject) => {
+					resolve(ethereumManager.alchemy.core.getCode(address))
+				}),
+				new Promise((resolve, reject) => {
+					const compiledHuff = compile({
+						files: {
+							[huffFileName]: code,
+						},
+						sources: [huffFileName],
+					})
+					console.log(compiledHuff)
+					resolve(compiledHuff)
+				}),
+			]).then((values: [string, any]) => {
+				console.log(values[0])
+				if (values[0] === '0x') {
+					setError('Invalid address')
+					setMatch("")
+					return
+				}
+				setError('')
+				setBytecode(values[1].contracts.get(huffFileName).runtime)
+				console.log(bytecode)
+				console.log(values[0].search(bytecode))
+				values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
+			})
+		}
+		catch (e) {
+			console.log(e)
+			setError(e.errors)
+		}
 	}
 
 	return (

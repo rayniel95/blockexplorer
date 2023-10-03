@@ -14,6 +14,7 @@ export interface VerifierFormProps extends CompileInfoProps{
 }
 //TODO - merge all verifers in a single page
 //TODO - split this in two components or use a component state machine
+//TODO - use a library to create and validate the form
 export default function VerifierForm({ verifierName, verify, error, compiledContractBytecode, match }: VerifierFormProps) {
 	const [code, setCode] = useState('')
 	const [address, setAddress] = useState('')
