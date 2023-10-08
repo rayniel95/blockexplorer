@@ -7,6 +7,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
 import CompileInfo from '../components/CompileInfo'
 import VerifierForm from '../components/VerifierForm'
+import { z } from 'zod'
+import { VerifierSchema } from '../components/schemas/verifierSchema'
 
 export interface SolcVerifierProps {
 	language: "Solidity" | "Yul"
@@ -15,7 +17,8 @@ export interface SolcVerifierProps {
 //TODO - split this in two components or use a component state machine
 export default function SolcVerifier({ language }: SolcVerifierProps) {
 	const [match, setMatch] = useState(false)
-	const [bytecode, setBytecode] = useState('')
+	const [compiledBytecode, setCompiledBytecode] = useState('')
+	const [addressBytecode, setAddressBytecode] = useState('')
 	const [error, setError] = useState('')
 	const network = useAppSelector((state) => state.network.newtork);
 	const solcWorkerRef = useRef<null | Worker>(null)
@@ -59,14 +62,13 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 
 	useEffect(() => {
 		if (solcWorkerRef && solcWorkerRef.current) {
-			// @ts-ignore change the worker message, when value and args changed.
-			solcWorkerRef.current?.onmessage = handleWorkerMessage
+			solcWorkerRef.current.onmessage = handleWorkerMessage
 		}
 	}, [solcWorkerRef, handleWorkerMessage])
 
 	useEffect(() => {
 		solcWorkerRef.current = new Worker(
-			new URL('../../lib/solcWorker.js', import.meta.url),
+			new URL('@/src/solcWorker.ts', import.meta.url),
 		)
 		solcWorkerRef.current.onmessage = handleWorkerMessage
 		console.log('Solidity compiler loaded')
@@ -79,39 +81,42 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	function verify(e: React.FormEvent<HTMLFormElement>) {
+	function verify(e: z.infer<typeof VerifierSchema>) {
 		ethereumManager.config(network)
-		e.preventDefault()
+		// e.preventDefault()
+		console.log(e)
 		try {
 			Promise.all([
-				new Promise((resolve, reject) => {
-					resolve(ethereumManager.alchemy.core.getCode(address))
+				new Promise((resolve: (value: Promise<string>)=>void, reject) => {
+					const code = ethereumManager.alchemy.core.getCode(e.contractAddress, e.blockNumber);
+					resolve(code)
 				}),
 				new Promise((resolve, reject) => {
-					const compiledHuff = compile({
-						files: {
-							[huffFileName]: code,
-						},
-						sources: [huffFileName],
+					solcWorkerRef.current!.postMessage({
+						language: language,
+						//TODO - allow to change the evm version
+						evmVersion: "london",
+						//@ts-ignore
+						source: e.target.code,
 					})
-					console.log(compiledHuff)
-					resolve(compiledHuff)
+					resolve({})
 				}),
 			]).then((values: [string, any]) => {
 				console.log(values[0])
 				if (values[0] === '0x') {
 					setError('Invalid address')
-					setMatch("")
+					setMatch(false)
 					return
 				}
 				setError('')
-				setBytecode(values[1].contracts.get(huffFileName).runtime)
-				console.log(bytecode)
-				console.log(values[0].search(bytecode))
-				values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
+				setAddressBytecode(values[0])
+				// setCompiledBytecode(values[1].contracts.get(huffFileName).runtime)
+				// console.log(compiledBytecode)
+				// console.log(values[0].search(compiledBytecode))
+				// values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
 			})
 		}
-		catch (e) {
+		catch (e: any) {
 			console.log(e)
 			setError(e.errors)
 		}
@@ -120,6 +125,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	return (
 		<>
 			<VerifierForm />
+			{/* <VerifierForm verifierName={language} verify={verify} error={error} compiledContractBytecode={addressBytecode} match={match}/> */}
 		</>
 	)
 }
