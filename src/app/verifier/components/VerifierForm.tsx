@@ -5,6 +5,7 @@ import NumberField from "./NumberField";
 import TextAreaField from "./TextAreaField";
 import { AddressSchema } from "./schemas/addressSchema";
 import { VerifierSchema } from "./schemas/verifierSchema";
+import { Button } from "react-bootstrap";
 
 // create the mapping
 const mapping = [
@@ -25,7 +26,7 @@ export default function VerifierForm() {
     <BaseVerifierForm
       schema={VerifierSchema}
       onSubmit={onSubmit}
-      renderAfter={() => <button type="submit">Verifier</button>}
+      renderAfter={() => <Button variant="primary" type='submit'>Verify</Button>}
       props={{
         contractAddress: {},
         blockNumber: {},
