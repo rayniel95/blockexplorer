@@ -6,7 +6,6 @@ import TextAreaField from "./TextAreaField";
 import { AddressSchema } from "./schemas/addressSchema";
 import { VerifierSchema } from "./schemas/verifierSchema";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import CompileInfo from "./CompileInfo";
 
 // create the mapping
 const mapping = [
@@ -24,9 +23,9 @@ export interface VerifierFormProps {
 }
 
 export default function VerifierForm({ verifierName, verify }: VerifierFormProps) {
-  function onSubmit(data: z.infer<typeof VerifierSchema>) {
-    // gets typesafe data when form is submitted
-  }
+  // function onSubmit(data: z.infer<typeof VerifierSchema>) {
+  //   // gets typesafe data when form is submitted
+  // }
 
   return (
     <BaseVerifierForm
@@ -42,7 +41,7 @@ export default function VerifierForm({ verifierName, verify }: VerifierFormProps
       {({ contractAddress, blockNumber, contractCode }) => {
         return (
           <Container>
-            <h5>{verifierName} Verifier</h5>
+            <h5>{verifierName} verifier</h5>
             <Form.Group className="mb-3">
               <Row>
                 <Col>
