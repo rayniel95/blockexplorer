@@ -124,8 +124,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 
 	return (
 		<>
-			<VerifierForm />
-			{/* <VerifierForm verifierName={language} verify={verify} error={error} compiledContractBytecode={addressBytecode} match={match}/> */}
+			<VerifierForm verifierName={language} verify={verify} />
 		</>
 	)
 }
