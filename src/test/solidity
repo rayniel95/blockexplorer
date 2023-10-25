@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract A {
+	constructor() public {}
+}
+
+contrac address: 0x62fc4B4dB0B87E223F8E7f7f03743F30d62D27A5
