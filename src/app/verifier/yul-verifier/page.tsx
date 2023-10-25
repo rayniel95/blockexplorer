@@ -4,11 +4,17 @@ import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
 import Script from 'next/script'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Dropdown, Form, Row } from 'react-bootstrap'
 import CompileInfo from '../components/CompileInfo'
 import VerifierForm from '../components/VerifierForm'
 import { z } from 'zod'
 import { VerifierSchema } from '../components/schemas/verifierSchema'
+
+
+enum MatchType {
+	Match = 'match',
+	NoMatch = 'no match',
+}
 
 export interface SolcVerifierProps {
 	language: "Solidity" | "Yul"
@@ -16,7 +22,7 @@ export interface SolcVerifierProps {
 //TODO - merge all verifers in a single page
 //TODO - split this in two components or use a component state machine
 export default function SolcVerifier({ language }: SolcVerifierProps) {
-	const [match, setMatch] = useState(false)
+	const [match, setMatch] = useState("")
 	const [compiledBytecode, setCompiledBytecode] = useState('')
 	const [addressBytecode, setAddressBytecode] = useState('')
 	const [error, setError] = useState('')
@@ -47,6 +53,9 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 				return
 			}
 			console.log(contracts)
+			addressBytecode.search(contracts[0].code) !== -1 ? setMatch("match") : setMatch("no match")
+			setCompiledBytecode(contracts[0].code)
+
 			// if (codeType === CodeType.Solidity) {
 			// 	setContract(contracts[0])
 			// }
@@ -83,29 +92,27 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 
 	function verify(e: z.infer<typeof VerifierSchema>) {
 		ethereumManager.config(network)
-		// e.preventDefault()
 		console.log(e)
 		try {
 			Promise.all([
-				new Promise((resolve: (value: Promise<string>)=>void, reject) => {
+				new Promise((resolve: (value: Promise<string>) => void, reject) => {
 					const code = ethereumManager.alchemy.core.getCode(e.contractAddress, e.blockNumber);
 					resolve(code)
 				}),
 				new Promise((resolve, reject) => {
 					solcWorkerRef.current!.postMessage({
-						language: language,
+						language: "Solidity",
 						//TODO - allow to change the evm version
 						evmVersion: "london",
-						//@ts-ignore
-						source: e.target.code,
+						source: e.contractCode,
 					})
 					resolve({})
 				}),
-			]).then((values: [string, any]) => {
+			]).then((values: [string, unknown]) => {
 				console.log(values[0])
 				if (values[0] === '0x') {
 					setError('Invalid address')
-					setMatch(false)
+					setMatch("not match")
 					return
 				}
 				setError('')
@@ -125,8 +132,17 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	return (
 		<>
 			<VerifierForm verifierName={language} verify={verify} />
+			{match?<Alert className="mt-3" variant={match==='match' ? 'success' : 'danger'}>
+				{match === 'match' ? 'Match' : 'No match'}
+			</Alert>:""}
+			<p>
+				<i className="bi bi-box-seam"></i> compiled contract: {compiledBytecode}
+			</p>
 		</>
 	)
 }
 
-
+/*
+0x95fF8D3CE9dcB7455BEB7845143bEA84Fe5C4F6f
+4456661
+*/
