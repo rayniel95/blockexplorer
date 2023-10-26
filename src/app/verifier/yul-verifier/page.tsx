@@ -66,7 +66,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 			// 	setIsCompiling(false)
 			// }
 		},
-		[],
+		[addressBytecode],
 	)
 
 	useEffect(() => {
@@ -92,7 +92,6 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 
 	function verify(e: z.infer<typeof VerifierSchema>) {
 		ethereumManager.config(network)
-		console.log(e)
 		try {
 			Promise.all([
 				new Promise((resolve: (value: Promise<string>) => void, reject) => {
