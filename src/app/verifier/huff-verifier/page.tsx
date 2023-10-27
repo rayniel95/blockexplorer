@@ -31,7 +31,7 @@ export default function HuffVerifier() {
 		e.preventDefault()
 		try {
 			Promise.all([
-				new Promise((resolve, reject) => {
+				new Promise((resolve: (value: Promise<string>)=>void, reject) => {
 					resolve(ethereumManager.alchemy.core.getCode(address))
 				}),
 				new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ export default function HuffVerifier() {
 				values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1? setMatch("match") : setMatch("no match")
 			})
 		}
-		catch (e) {
+		catch (e: any) {
 			console.log(e)
 			setError(e.errors)
 		}

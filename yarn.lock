@@ -732,6 +732,13 @@
   dependencies:
     "@types/react" "^17"
 
+"@types/react-infinite-scroller@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@types/react-infinite-scroller/-/react-infinite-scroller-1.2.4.tgz#49d4694632c2cf6b57b4673d72c58dd8cdd8026d"
+  integrity sha512-grzrq7XPcn/jAy+ygR0VnlsjmY4RHyobW0teUzG7iLvA/3czjKN79oWeAmnhZEvKUFAW5kk6AqHY9U/yAsiANw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.4.5":
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.6.tgz#18187bcda5281f8e10dfc48f0943e2fdf4f75e2e"

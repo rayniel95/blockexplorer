@@ -12,13 +12,19 @@ const itemsPerPage = 10
 
 export default function AddressTransactionList({ addressNumber, from }: { addressNumber: string, from: boolean }) {
 	//TODO - add links to address details and block details with hash and number
-	const [items, setItems] = useState([]);
-	const [pageKey, setPageKey] = useState(undefined)
+	const [items, setItems] = useState<any[]>([]);
+	const [pageKey, setPageKey] = useState<string|undefined>(undefined)
 
 	const hasMore = (pageKey == undefined && items.length == 0) || (pageKey != undefined && items.length > 0)
 
 	async function fetchData() {
-		const body = {
+		const body: {
+			category: AssetTransfersCategory[];
+			maxCount: number;
+			fromAddress: undefined|string;
+			toAddress: undefined|string;
+			pageKey: undefined|string;
+		} = {
 			category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.INTERNAL],
 			maxCount: itemsPerPage,
 			fromAddress: undefined,

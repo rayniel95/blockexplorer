@@ -15,7 +15,7 @@ export default function TransactionBlockHashDetails({params}: {params:{transacti
 			try {
 				//TODO - add loading item to items that read from network
 				const response = await ethereumManager.getAlchemy().core.getTransaction(transactionHash)
-				setTransaction(response);
+				setTransaction(response!);
 			} catch (error) {
 				console.error('Error:', error);
 			}
