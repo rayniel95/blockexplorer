@@ -19,7 +19,7 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
     "Sepolia": () => dispatch(changeNetwork(Network.ETH_SEPOLIA)),
   }
 
-  const networkToNetworkName = {
+  const networkToNetworkName: Record<string, string> = {
     [Network.ETH_MAINNET]: "Ethereum Mainnet",
     [Network.ETH_SEPOLIA]: "Sepolia",
   }

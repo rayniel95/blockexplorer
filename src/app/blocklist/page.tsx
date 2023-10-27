@@ -27,7 +27,7 @@ async function blockController(itemsPerPage: number, pageNumber: number): Promis
 export default function BlockList() {
 	const [offset, setOffset] = useState(0);
 	const [itemsCount, setItemsCount] = useState(0)
-	const [elementProps, setElementProps] = useState([])
+	const [elementProps, setElementProps] = useState<any[]>([])
 
 	useEffect(() => {
 		const fetchData = async () => {

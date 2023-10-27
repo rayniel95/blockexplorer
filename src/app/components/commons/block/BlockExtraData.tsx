@@ -7,7 +7,7 @@ import { BlockWithTransactions } from "alchemy-sdk";
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 
-const hexToAscii = (hex) => {
+const hexToAscii = (hex: string) => {
   let str = '';
   for (let i = 0; i < hex.length; i += 2) {
     const asciiCode = parseInt(hex.substr(i, 2), 16);

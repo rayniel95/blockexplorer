@@ -31,7 +31,7 @@ export default function List({ element, itemsCount, itemsPerPage, elementProps, 
   const pageCount = Math.ceil(itemsCount / itemsPerPage);
 
   // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
+  const handlePageClick = (event: any) => {
     setOffset(event.selected);
   };
   console.log(elementProps)
