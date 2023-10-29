@@ -50,7 +50,8 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 				)
 				return
 			}
-			console.log(contracts)
+			console.log(contracts[0].code)
+			console.log('address bytecode' + addressBytecode)
 			addressBytecode.search(contracts[0].code) !== -1 ? setMatch("match") : setMatch("no match")
 			setCompiledBytecode(contracts[0].code)
 
@@ -88,36 +89,28 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	function verify(e: z.infer<typeof VerifierSchema>) {
+	async function verify(e: z.infer<typeof VerifierSchema>) {
 		ethereumManager.config(network)
 		try {
-			Promise.all([
-				new Promise((resolve: (value: Promise<string>) => void, reject) => {
-					const code = ethereumManager.alchemy.core.getCode(e.contractAddress, e.blockNumber);
-					resolve(code)
-				}),
-				new Promise((resolve, reject) => {
-					solcWorkerRef.current!.postMessage({
-						language: "Solidity",
-						//TODO - allow to change the evm version
-						evmVersion: "london",
-						source: e.contractCode,
-					})
-					resolve({})
-				}),
-			]).then((values: [string, unknown]) => {
-				console.log(values[0])
-				if (values[0] === '0x') {
-					setError('Invalid address')
-					setMatch("not match")
-					return
-				}
-				setError('')
-				setAddressBytecode(values[0])
-				// setCompiledBytecode(values[1].contracts.get(huffFileName).runtime)
-				// console.log(compiledBytecode)
-				// console.log(values[0].search(compiledBytecode))
-				// values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
+			const bytecode = await ethereumManager.alchemy.core.getCode(e.contractAddress, e.blockNumber)
+			console.log(bytecode)
+			if (bytecode === '0x') {
+				setError('Invalid address')
+				setMatch("not match")
+				return
+			}
+			setError('')
+			setAddressBytecode(bytecode)
+			// setCompiledBytecode(values[1].contracts.get(huffFileName).runtime)
+			// console.log(compiledBytecode)
+			// console.log(values[0].search(compiledBytecode))
+			// values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
+		
+			solcWorkerRef.current!.postMessage({
+				language: "Solidity",
+				//TODO - allow to change the evm version
+				evmVersion: "london",
+				source: e.contractCode,
 			})
 		}
 		catch (e: any) {
@@ -139,7 +132,5 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	)
 }
 
-/*
-0x95fF8D3CE9dcB7455BEB7845143bEA84Fe5C4F6f
-4456661
-*/
+// bytecode0x6080604052600080fdfea2646970667358221220aba765e02e2382683958e2e1cabd79d30af124c8feb6c98c600dd80c5d2cc47d64736f6c63430008130033
+// 6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122052fc7d5b9863dadb9b2916e33f31b4b3682514dc25ad465034b9490261c7cf9a64736f6c63430008110033
