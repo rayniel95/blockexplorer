@@ -43,27 +43,18 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 			console.log('Compilation successful')
 
 			if (contracts.length > 1) {
-				// setIsCompiling(false)
 				console.log(
 					'The source should contain only one contract, Please select one to deploy.',
 					'error',
 				)
 				return
 			}
+			console.log(contracts)
 			console.log(contracts[0].code)
 			console.log('address bytecode' + addressBytecode)
-			addressBytecode.search(contracts[0].code) !== -1 ? setMatch("match") : setMatch("no match")
+			const contractCode: string = contracts[0].code;
+			addressBytecode.search(contractCode.slice(69, -88)) !== -1 ? setMatch("match") : setMatch("no match")
 			setCompiledBytecode(contracts[0].code)
-
-			// if (codeType === CodeType.Solidity) {
-			// 	setContract(contracts[0])
-			// }
-
-			// if (!isExpanded) {
-			// 	deployByteCode(contracts[0].code, '', undefined)
-			// } else {
-			// 	setIsCompiling(false)
-			// }
 		},
 		[addressBytecode],
 	)
@@ -101,11 +92,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 			}
 			setError('')
 			setAddressBytecode(bytecode)
-			// setCompiledBytecode(values[1].contracts.get(huffFileName).runtime)
-			// console.log(compiledBytecode)
-			// console.log(values[0].search(compiledBytecode))
-			// values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
-		
+
 			solcWorkerRef.current!.postMessage({
 				language: "Solidity",
 				//TODO - allow to change the evm version
@@ -132,5 +119,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	)
 }
 
-// bytecode0x6080604052600080fdfea2646970667358221220aba765e02e2382683958e2e1cabd79d30af124c8feb6c98c600dd80c5d2cc47d64736f6c63430008130033
-// 6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122052fc7d5b9863dadb9b2916e33f31b4b3682514dc25ad465034b9490261c7cf9a64736f6c63430008110033
+// bytecode 0x6080604052 600080fdfea2646970667358221220 
+//aba765e02e2382683958e2e1cabd79d30af124c8feb6c98c600dd80c5d2cc47d64736f6c63430008130033
+//6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052 600080fdfea2646970667358221220 
+//52fc7d5b9863dadb9b2916e33f31b4b3682514dc25ad465034b9490261c7cf9a64736f6c63430008110033
