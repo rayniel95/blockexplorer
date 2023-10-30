@@ -1,9 +1,8 @@
 'use client'
 
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import VerifierForm from '../components/VerifierForm'
 import { z } from 'zod'
