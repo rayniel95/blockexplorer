@@ -32,9 +32,8 @@ export default function HuffVerifier() {
     const network = useAppSelector((state) => state.network.newtork);
 
 
-    function verify(e: React.FormEvent<HTMLFormElement>) {
+	function verify(e: z.infer<typeof VerifierSchema>) {
         ethereumManager.config(network)
-        e.preventDefault()
         try {
             Promise.all([
                 new Promise((resolve: (value: Promise<string>) => void, reject) => {
