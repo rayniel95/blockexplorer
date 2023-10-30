@@ -22,11 +22,6 @@ const huffFileName = 'main.huff'
 export default function HuffVerifier() {
     const [match, setMatch] = useState("")
 	const [compiledBytecode, setCompiledBytecode] = useState('')
-	const [addressBytecode, setAddressBytecode] = useState('')
-    const [code, setCode] = useState('')
-    const [address, setAddress] = useState('')
-    const [addressBlock, setAddressBlock] = useState('')
-    const [bytecode, setBytecode] = useState('')
     const [error, setError] = useState('')
     const network = useAppSelector((state) => state.network.newtork);
 
@@ -36,12 +31,12 @@ export default function HuffVerifier() {
         try {
             Promise.all([
                 new Promise((resolve: (value: Promise<string>) => void, reject) => {
-                    resolve(ethereumManager.alchemy.core.getCode(address))
+                    resolve(ethereumManager.alchemy.core.getCode(e.contractAddress, e.blockNumber))
                 }),
                 new Promise((resolve, reject) => {
                     const compiledHuff = compile({
                         files: {
-                            [huffFileName]: code,
+                            [huffFileName]: e.contractCode,
                         },
                         sources: [huffFileName],
                     })
@@ -56,9 +51,7 @@ export default function HuffVerifier() {
                     return
                 }
                 setError('')
-                setBytecode(values[1].contracts.get(huffFileName).runtime)
-                console.log(bytecode)
-                console.log(values[0].search(bytecode))
+                setCompiledBytecode(values[1].contracts.get(huffFileName).runtime)
                 values[0].search(values[1].contracts.get(huffFileName).runtime) !== -1 ? setMatch("match") : setMatch("no match")
             })
         }
