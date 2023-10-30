@@ -2,7 +2,7 @@
 export const BLOCKLIST_ROUTE = "/blocklist";
 export const BLOCKDETAILSHASH_ROUTE = "/blockdetails/block-hash";
 export const BLOCKDETAILSNUMBER_ROUTE = "/blockdetails/block-number";
-export const HUFFVERIFIER_ROUTE = "/huff-verifier";
+export const HUFFVERIFIER_ROUTE = "/verifier/huff-verifier";
 export const TRANSACTIONDETAILS_ROUTE = "/transactiondetails/transaction-hash";
 export const TRANSACTIONLISTBLOCK_ROUTE = "/transactionlist/block";
 export const TRANSACTIONLISTADDRESS_ROUTE = "/transactionlist/address";
