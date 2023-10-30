@@ -71,10 +71,6 @@ export default function HuffVerifier() {
                 <i className="bi bi-box-seam"></i> compiled contract: {compiledBytecode}
             </p>
         </>
-        // <Container>
-        // 	<h5>Huff Verifier</h5>
-        // 	<Form onSubmit={verify}>
-        // 		<Form.Group className="mb-3">
     )
 }
 
