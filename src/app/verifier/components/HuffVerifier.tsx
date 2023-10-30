@@ -71,7 +71,7 @@ export default function HuffVerifier() {
 
     return (
         <>
-            <VerifierForm verifierName={language} verify={verify} />
+            <VerifierForm verifierName={"HuffVerifier"} verify={verify} />
             {match ? <Alert className="mt-3" variant={match === 'match' ? 'success' : 'danger'}>
                 {match === 'match' ? 'Match' : 'No match'}
             </Alert> : ""}
