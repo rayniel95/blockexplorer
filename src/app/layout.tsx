@@ -53,7 +53,7 @@ export default function RootLayout({
                           <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
                         </Col>
                         <Col>
-                          <Link href={`${settings.HUFFVERIFIER_ROUTE}`}>Huff Verifier</Link>
+                          <Link href={`${settings.VERIFIERS_ROUTE}`}>Verifiers</Link>
                         </Col>
                       </Row>
                     </Container>
