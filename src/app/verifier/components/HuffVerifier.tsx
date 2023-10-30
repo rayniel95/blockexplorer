@@ -1,10 +1,6 @@
 'use client'
 
-import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
-import { useAppSelector } from '@/src/stateManager/hooks'
-import { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import VerifierForm from './VerifierForm'
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -28,13 +24,9 @@ export default function HuffVerifier() {
     const [match, setMatch] = useState("")
 	const [compiledBytecode, setCompiledBytecode] = useState('')
 	const [addressBytecode, setAddressBytecode] = useState('')
-	const [error, setError] = useState('')
-	const network = useAppSelector((state) => state.network.newtork);
-
     const [code, setCode] = useState('')
     const [address, setAddress] = useState('')
     const [addressBlock, setAddressBlock] = useState('')
-    const [match, setMatch] = useState("")
     const [bytecode, setBytecode] = useState('')
     const [error, setError] = useState('')
     const network = useAppSelector((state) => state.network.newtork);
