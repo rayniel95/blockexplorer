@@ -31,7 +31,7 @@ export default function VerifierForm({ verifierName, verify }: VerifierFormProps
     <BaseVerifierForm
       schema={VerifierSchema}
       onSubmit={verify}
-      renderAfter={() => <Button variant="primary" type='submit'>Verify</Button>}
+      // renderAfter={() => }
       props={{
         contractAddress: {},
         blockNumber: {},
@@ -55,6 +55,11 @@ export default function VerifierForm({ verifierName, verify }: VerifierFormProps
             <Form.Group className="mb-3">
               {contractCode}
             </Form.Group>
+            <Row>
+              <Col>
+                <Button variant="primary" type='submit'>Verify</Button>
+              </Col>
+            </Row>
           </Container>
         );
       }}
