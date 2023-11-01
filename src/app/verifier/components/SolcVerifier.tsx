@@ -3,7 +3,7 @@
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Alert } from 'react-bootstrap'
+import { Alert, Col, Container, Row } from 'react-bootstrap'
 import VerifierForm from '../components/VerifierForm'
 import { z } from 'zod'
 import { VerifierSchema } from '../components/schemas/verifierSchema'
@@ -109,17 +109,13 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 	return (
 		<>
 			<VerifierForm verifierName={language} verify={verify} />
-			{match?<Alert className="mt-3" variant={match==='match' ? 'success' : 'danger'}>
-				{match === 'match' ? 'Match' : 'No match'}
-			</Alert>:""}
-			<p>
-				<i className="bi bi-box-seam"></i> compiled contract: {compiledBytecode}
-			</p>
+			<Container>
+				{match ? <Alert className="mt-3" variant={match === 'match' ? 'success' : 'danger'}>
+					{match === 'match' ? 'Match' : 'No match'}
+				</Alert> : ""}
+				<i className="bi bi-box-seam"> compiled contract:</i>
+				<p className='text-break'>{compiledBytecode}</p>
+			</Container>
 		</>
 	)
 }
-
-// bytecode 0x6080604052 600080fdfea2646970667358221220 
-//aba765e02e2382683958e2e1cabd79d30af124c8feb6c98c600dd80c5d2cc47d64736f6c63430008130033
-//6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052 600080fdfea2646970667358221220 
-//52fc7d5b9863dadb9b2916e33f31b4b3682514dc25ad465034b9490261c7cf9a64736f6c63430008110033

@@ -3,7 +3,7 @@
 import { ethereumManager } from '@/src/stateManager/blockchainManager/ethereum'
 import { useAppSelector } from '@/src/stateManager/hooks'
 import { useState } from 'react'
-import { Alert } from 'react-bootstrap'
+import { Alert, Container } from 'react-bootstrap'
 import VerifierForm from '../components/VerifierForm'
 import { z } from 'zod'
 import { VerifierSchema } from '../components/schemas/verifierSchema'
@@ -64,12 +64,13 @@ export default function HuffVerifier() {
     return (
         <>
             <VerifierForm verifierName={"Huff"} verify={verify} />
-            {match ? <Alert className="mt-3" variant={match === 'match' ? 'success' : 'danger'}>
-                {match === 'match' ? 'Match' : 'No match'}
-            </Alert> : ""}
-            <p>
-                <i className="bi bi-box-seam"></i> compiled contract: {compiledBytecode}
-            </p>
+			<Container>
+				{match ? <Alert className="mt-3" variant={match === 'match' ? 'success' : 'danger'}>
+					{match === 'match' ? 'Match' : 'No match'}
+				</Alert> : ""}
+				<i className="bi bi-box-seam"> compiled contract:</i>
+				<p className='text-break'>{compiledBytecode}</p>
+			</Container>
         </>
     )
 }
