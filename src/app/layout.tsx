@@ -3,7 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
-import { Col, Container, ListGroup, ListGroupItem, Nav, Offcanvas, Row } from 'react-bootstrap'
+import { Col, Container, Offcanvas, Row, Stack } from 'react-bootstrap'
 import Footer from './components/Footer'
 import Link from 'next/link'
 import Header from './components/Header'
@@ -43,20 +43,14 @@ export default function RootLayout({
               <Col className="d-none d-md-block" md={2}>
                 <Offcanvas show={show} onHide={handleClose} responsive="md">
                   <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Responsive offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Options</Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body>
                     {/* TODO - put this in another component */}
-                    <Container>
-                      <Row>
-                        <Col>
-                          <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
-                        </Col>
-                        <Col>
-                          <Link href={`${settings.VERIFIERS_ROUTE}`}>Verifiers</Link>
-                        </Col>
-                      </Row>
-                    </Container>
+                    <Stack>
+                      <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
+                      <Link href={`${settings.VERIFIERS_ROUTE}`}>Verifiers</Link>
+                    </Stack>
                   </Offcanvas.Body>
                 </Offcanvas>
               </Col>
