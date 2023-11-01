@@ -53,7 +53,7 @@ export default function SolcVerifier({ language }: SolcVerifierProps) {
 			console.log(contracts[0].code)
 			console.log('address bytecode' + addressBytecode)
 			const contractCode: string = contracts[0].code;
-			addressBytecode.search(contractCode.slice(69, -88)) !== -1 ? setMatch("match") : setMatch("no match")
+			addressBytecode.search(contractCode.slice(79, -88)) !== -1 ? setMatch("match") : setMatch("no match")
 			setCompiledBytecode(contracts[0].code)
 		},
 		[addressBytecode],
