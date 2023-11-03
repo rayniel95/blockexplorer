@@ -52,7 +52,7 @@ export function Searcher() {
 
     return (
         <Form className="d-flex" onSubmit={search}>
-            <Container className="">
+            <Container className="ps-0">
                 <Row>
                     <Col>
                         <Form.Group>
@@ -61,7 +61,6 @@ export function Searcher() {
                                     <Form.Control
                                         type="search"
                                         placeholder="tx hash/address/block number/block hash"
-                                        className="me-2"
                                         aria-label="search"
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
