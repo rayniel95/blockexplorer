@@ -28,7 +28,7 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
     <header>
       <Navbar expand="md">
         <Container fluid>
-          <Button variant="primary" className="d-md-none" onClick={showOffcanvas}>
+          <Button variant="outline-secondary" className="d-md-none" onClick={showOffcanvas}>
             <i className="bi bi-three-dots"></i>
           </Button>
           <Navbar.Brand>Blockchain Explorer</Navbar.Brand>
