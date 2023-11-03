@@ -12,6 +12,7 @@ import { useState } from 'react'
 import store from '@/src/stateManager/store'
 import { Provider } from 'react-redux'
 import * as settings from '@/src/settings'
+import Options from './components/Options'
 
 
 // TODO - add transaction and block details and improve css with icons in 
@@ -41,18 +42,7 @@ export default function RootLayout({
           <Container fluid>
             <Row>
               <Col className="d-none d-md-block" md={2}>
-                <Offcanvas show={show} onHide={handleClose} responsive="md">
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Options</Offcanvas.Title>
-                  </Offcanvas.Header>
-                  <Offcanvas.Body>
-                    {/* TODO - put this in another component */}
-                    <Stack>
-                      <Link href={`${settings.BLOCKLIST_ROUTE}`}>Blocks</Link>
-                      <Link href={`${settings.VERIFIERS_ROUTE}`}>Verifiers</Link>
-                    </Stack>
-                  </Offcanvas.Body>
-                </Offcanvas>
+                <Options show={show} handleClose={handleClose} />
               </Col>
               <Col xs={12} md={10}>
                 <main>
