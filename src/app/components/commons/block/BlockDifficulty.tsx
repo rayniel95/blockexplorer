@@ -8,7 +8,6 @@ import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 
 export default function BlockDifficulty({ block }: { block: BlockWithTransactions }) {
-  //TODO - add color themes. research about it
   return (
     <div>
       <OverlayTrigger

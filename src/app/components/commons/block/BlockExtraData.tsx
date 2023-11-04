@@ -17,7 +17,6 @@ const hexToAscii = (hex: string) => {
 };
 
 export default function BlockExtraData({ block }: { block: BlockWithTransactions }) {
-  //TODO - add color themes. research about it
   return (
     <div>
       <OverlayTrigger

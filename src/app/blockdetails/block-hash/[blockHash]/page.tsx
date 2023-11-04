@@ -13,7 +13,6 @@ export default function BlockHashDetails({params}: {params:{blockHash:string}}) 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				//TODO - add loading item to items that read from network
 				const response = await ethereumManager.alchemy.core.getBlockWithTransactions(blockHash)
 				setBlock(response);
 			} catch (error) {

@@ -2,7 +2,6 @@ import { Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 
 export default function Footer() {
-//TODO - add color themes. research about it
   return (
     <footer>
       <Container>

@@ -8,7 +8,6 @@ import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 
 export default function AddressBalance({ balance }: { balance: string }) {
-  //TODO - add color themes. research about it
   return (
     <div>
       <OverlayTrigger
