@@ -5,6 +5,7 @@ import { AssetTransfersCategory } from "alchemy-sdk";
 import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import InfiniteScroll from "react-infinite-scroller";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
+import { Spinner } from "react-bootstrap";
 //FIXME - use the link component from next instead a component. it add
 // base path automatically
 
@@ -46,7 +47,9 @@ export default function AddressTransactionList({ addressNumber, from }: { addres
 			<InfiniteScroll
 				loadMore={fetchData}
 				hasMore={hasMore}
-				loader={<h4 key={-1}>Loading...</h4>} //TODO - use a loader icon
+				loader={  
+						<Spinner key={-1} animation="border" variant="primary" />			
+				} 
 				pageStart={0}
 				useWindow={false}
 			>
