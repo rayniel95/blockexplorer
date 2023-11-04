@@ -38,7 +38,7 @@ export default function Home() {
 	return (
 		<Container fluid>
 			<Row>
-				<Col>
+				<Col sm='6'>
 					<ListGroup>
 						{blocks.reverse().map((response, index) => {
 							return (
@@ -49,7 +49,7 @@ export default function Home() {
 						})}
 					</ListGroup>
 				</Col>
-				<Col>
+				<Col sm='6'>
 					<ListGroup>
 						{
 							ethereumManager.extractLatestsTransactions(blocks, 5).map((tx, index) => {
