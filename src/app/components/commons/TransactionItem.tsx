@@ -9,7 +9,7 @@ import Link from "next/link";
 //TODO - reestructure this 
 export function TransactionItem({ item }: { item: TransactionResponse }) {
     return (
-        <div>
+        <div className="text-truncate">
             <Link
                 href={`${settings.TRANSACTIONDETAILS_ROUTE}/${item.hash}`}
             >

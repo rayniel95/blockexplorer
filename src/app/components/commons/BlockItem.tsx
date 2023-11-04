@@ -9,7 +9,7 @@ import Link from "next/link"
 export function BlockItem({ item }: { item: BlockWithTransactions }) {
     if (item) {
         return (
-            <div>
+            <div className="text-truncate">
                 <Link
                     href={`${settings.BLOCKDETAILSNUMBER_ROUTE}/${parseInt(item.number.toString(), 16)}`}
                 >
