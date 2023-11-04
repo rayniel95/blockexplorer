@@ -5,14 +5,11 @@ import { useAppDispatch, useAppSelector } from "@/src/stateManager/hooks";
 import * as settings from "@/src/settings";
 import { NetworkSwitcher } from "./commons/header/NetworkSwitcher";
 import { Searcher } from "./commons/header/Searcher";
+import Link from "next/link";
 
 
 export default function Header({ showOffcanvas }: { showOffcanvas: () => void }) {
-  //NOTE - maybe use a small font size for use expand in md
-  //TODO - use a fixed bootom top for header and footer and put the center
-  // in the middle
-  //TODO - extract network swiotcher to another wrapper component
-  const network = useAppSelector((state) => state.network.newtork);
+   const network = useAppSelector((state) => state.network.newtork);
   const dispatch = useAppDispatch()
   const actionsForNetwork = {
     "Ethereum Mainnet": () => dispatch(changeNetwork(Network.ETH_MAINNET)),
@@ -41,7 +38,7 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="mb-2">
-                <Nav.Link href={`${settings.BASE_PATH}`}>Home</Nav.Link>
+                <Nav.Link><Link href={'/'}>Home</Link></Nav.Link>
                 <NetworkSwitcher id="offCanvasNav" actionForNetwork={actionsForNetwork} defaultNetwork={networkToNetworkName[network]} />
               </Nav>
               <Searcher />
