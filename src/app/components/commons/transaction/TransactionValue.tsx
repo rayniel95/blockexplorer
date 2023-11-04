@@ -21,7 +21,7 @@ export default function TransactionValue({ tx }: { tx: TransactionResponse }) {
         }
       >
         <p>
-          <i className="bi bi-coin"></i> {`${tx.value.toString().slice(0, 5)}...`}
+          <i className="bi bi-coin"></i> {tx.value.toString()}
         </p>
       </OverlayTrigger>
     </div>

@@ -20,7 +20,7 @@ export default function BlockDifficulty({ block }: { block: BlockWithTransaction
         }
       >
         <p>
-          <i className="bi bi-database-fill-check"></i> {`${block.difficulty.toString().slice(0, 5)}...`}
+          <i className="bi bi-database-fill-check"></i> {block.difficulty.toString()}
         </p>
       </OverlayTrigger>
     </div>

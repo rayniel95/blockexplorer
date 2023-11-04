@@ -20,7 +20,7 @@ export default function AddressBalance({ balance }: { balance: string }) {
         }
       >
         <p>
-          <i className="bi bi-piggy-bank-fill"></i> {`${balance.toString().slice(0, 5)}...`}
+          <i className="bi bi-piggy-bank-fill"></i> {balance.toString()}
         </p>
       </OverlayTrigger>
     </div>

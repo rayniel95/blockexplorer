@@ -20,7 +20,7 @@ export default function BlockGasUsed({ block }: { block: BlockWithTransactions }
         }
       >
         <p>
-        <i className="bi bi-fuel-pump-fill"></i> {`${block.gasUsed.toString().slice(0, 5)}...`}
+        <i className="bi bi-fuel-pump-fill"></i> {block.gasUsed.toString()}
         </p>
       </OverlayTrigger>
     </div>

@@ -20,7 +20,7 @@ export default function TransactionFrom({ tx }: { tx: TransactionResponse }) {
         }
       >
         <p>
-          <i className="bi bi-arrow-left-square"></i> {`${tx.hash.toString().slice(0, 5)}...`}
+          <i className="bi bi-arrow-left-square"></i> {tx.hash.toString()}
         </p>
       </OverlayTrigger>
     </div>

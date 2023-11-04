@@ -22,7 +22,7 @@ export default function TransactionGasLimit({ tx }: { tx: TransactionResponse })
         }
       >
         <p>
-          <i className="bi bi-fuel-pump-fill"></i> {tx.gasLimit.toString().slice(0, 5)}...
+          <i className="bi bi-fuel-pump-fill"></i> {tx.gasLimit.toString()}
         </p>
       </OverlayTrigger>
     </div>

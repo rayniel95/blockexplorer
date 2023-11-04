@@ -20,7 +20,7 @@ export default function AddressTransactionCount({ transactionCount }: { transact
         }
       >
         <p>
-          <i className="bi bi-wallet2"></i> {`${transactionCount.toString().slice(0, 5)}...`}
+          <i className="bi bi-wallet2"></i> {transactionCount.toString()}
         </p>
       </OverlayTrigger>
     </div>

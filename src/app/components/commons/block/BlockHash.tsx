@@ -20,7 +20,7 @@ export default function BlockFeeRecipient({ block }: { block: BlockWithTransacti
         }
       >
         <p>
-          <i className="bi bi-hash"></i> {`${block.hash.toString().slice(0, 5)}...`}
+          <i className="bi bi-hash"></i> {block.hash.toString()}
         </p>
       </OverlayTrigger>
     </div>

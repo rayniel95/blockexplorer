@@ -20,7 +20,7 @@ export default function BlockFeeRecipient({ block }: { block: BlockWithTransacti
         }
       >
         <p>
-          <i className="bi bi-currency-bitcoin"></i> {`${block.miner.toString().slice(0, 5)}...`}
+          <i className="bi bi-currency-bitcoin"></i> {block.miner.toString()}
         </p>
       </OverlayTrigger>
     </div>

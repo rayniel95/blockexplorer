@@ -20,7 +20,7 @@ export default function TransactionHash({ tx }: { tx: TransactionResponse }) {
         }
       >
         <p>
-          <i className="bi bi-hash"></i> {`${tx.hash.toString().slice(0, 5)}...`}
+          <i className="bi bi-hash"></i> {tx.hash.toString()}
         </p>
       </OverlayTrigger>
     </div>

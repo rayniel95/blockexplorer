@@ -29,7 +29,7 @@ export default function BlockExtraData({ block }: { block: BlockWithTransactions
         }
       >
         <p>
-        <i className="bi bi-clipboard-data"></i> {`${block.extraData.toString().slice(0, 5)}...`}
+        <i className="bi bi-clipboard-data"></i> {block.extraData.toString()}
         </p>
       </OverlayTrigger>
     </div>

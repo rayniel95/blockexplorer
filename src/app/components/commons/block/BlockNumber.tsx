@@ -20,7 +20,7 @@ export default function BlockNumber({ block }: { block: BlockWithTransactions })
         }
       >
         <p>
-          <i className="bi bi-boxes"></i> {`${block.number.toString().slice(0, 5)}...`}
+          <i className="bi bi-boxes"></i> {block.number.toString()}
         </p>
       </OverlayTrigger>
     </div>
