@@ -17,8 +17,7 @@ enum MatchType {
 export interface SolcVerifierProps {
 	language: "Solidity" | "Yul"
 }
-//TODO - merge all verifers in a single page
-//TODO - split this in two components or use a component state machine
+
 export default function SolcVerifier({ language }: SolcVerifierProps) {
 	const [match, setMatch] = useState("")
 	const [compiledBytecode, setCompiledBytecode] = useState('')

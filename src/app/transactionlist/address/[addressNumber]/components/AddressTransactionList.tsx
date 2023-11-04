@@ -6,13 +6,10 @@ import { TransactionItem } from "@/app/components/commons/TransactionItem";
 import InfiniteScroll from "react-infinite-scroller";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 import { Spinner } from "react-bootstrap";
-//FIXME - use the link component from next instead a component. it add
-// base path automatically
 
 const itemsPerPage = 10
 
 export default function AddressTransactionList({ addressNumber, from }: { addressNumber: string, from: boolean }) {
-	//TODO - add links to address details and block details with hash and number
 	const [items, setItems] = useState<any[]>([]);
 	const [pageKey, setPageKey] = useState<string|undefined>(undefined)
 

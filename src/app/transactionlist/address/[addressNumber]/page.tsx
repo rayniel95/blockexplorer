@@ -5,7 +5,6 @@ import { Button, Container } from "react-bootstrap";
 import AddressTransactionList from "./components/AddressTransactionList";
 
 
-//TODO - type this
 export default function TransactionListFromToAddress({ params }: { params: { addressNumber: string } }) {
 	const [from, setFrom] = useState(true)
 

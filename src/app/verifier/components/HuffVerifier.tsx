@@ -16,9 +16,7 @@ async function loadCompile() {
 }
 
 loadCompile()
-//TODO - merge all verifers in a single page
 const huffFileName = 'main.huff'
-//TODO - split this in two components or use a component state machine
 export default function HuffVerifier() {
     const [match, setMatch] = useState("")
 	const [compiledBytecode, setCompiledBytecode] = useState('')

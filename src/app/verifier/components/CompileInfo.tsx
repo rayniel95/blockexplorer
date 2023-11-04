@@ -12,8 +12,7 @@ export interface CompileInfoProps {
     compiledContractBytecode: string,
     match: boolean
 }
-//TODO - merge all verifers in a single page
-//TODO - split this in two components or use a component state machine
+
 export default function CompileInfo({ error, compiledContractBytecode, match }: CompileInfoProps) {
     const matchString = match ? 'match' : 'no match'
 
