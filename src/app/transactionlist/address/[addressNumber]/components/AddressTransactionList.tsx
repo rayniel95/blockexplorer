@@ -11,7 +11,7 @@ const itemsPerPage = 10
 
 export default function AddressTransactionList({ addressNumber, from }: { addressNumber: string, from: boolean }) {
 	const [items, setItems] = useState<any[]>([]);
-	const [pageKey, setPageKey] = useState<string|undefined>(undefined)
+	const [pageKey, setPageKey] = useState<string | undefined>(undefined)
 
 	const hasMore = (pageKey == undefined && items.length == 0) || (pageKey != undefined && items.length > 0)
 
@@ -19,9 +19,9 @@ export default function AddressTransactionList({ addressNumber, from }: { addres
 		const body: {
 			category: AssetTransfersCategory[];
 			maxCount: number;
-			fromAddress: undefined|string;
-			toAddress: undefined|string;
-			pageKey: undefined|string;
+			fromAddress: undefined | string;
+			toAddress: undefined | string;
+			pageKey: undefined | string;
 		} = {
 			category: [AssetTransfersCategory.EXTERNAL, AssetTransfersCategory.INTERNAL],
 			maxCount: itemsPerPage,
@@ -44,16 +44,19 @@ export default function AddressTransactionList({ addressNumber, from }: { addres
 			<InfiniteScroll
 				loadMore={fetchData}
 				hasMore={hasMore}
-				loader={  
-						<Spinner key={-1} animation="border" variant="primary" />			
-				} 
+				loader={
+					<Spinner key={-1} animation="border" variant="primary" />
+				}
 				pageStart={0}
 				useWindow={false}
 			>
 				{
 					items.map(
 						(item) => (
-							<TransactionItem item={item} key={item.hash} />
+							<div>
+								<TransactionItem item={item} key={item.hash} />
+								<hr />
+							</div>
 						)
 					)
 				}
