@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import List from "../components/commons/Lists";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 import { BlockItem } from "@/app/components/commons/BlockItem";
+import { Container } from "react-bootstrap";
 
 
 const itemsPerPage = 10
@@ -52,7 +53,12 @@ export default function BlockList() {
 	}, [offset]);
 
 	return (
-		<div>
+		<>
+			<Container>
+				<h4>
+					Blocks
+				</h4>
+			</Container>
 			<List
 				element={BlockItem}
 				itemsCount={itemsCount}
@@ -60,6 +66,6 @@ export default function BlockList() {
 				elementProps={elementProps}
 				setOffset={setOffset}
 			/>
-		</div>
+		</>
 	);
 }
