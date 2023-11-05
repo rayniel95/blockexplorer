@@ -33,11 +33,12 @@ export default function AddressDetails({ params }: { params: { address: string }
 	}, []);
 
 	return (
-		<div>
+		<>
+			<h4>Address details</h4>
 			<AddressBalance balance={balance} />
 			<Link href={`${settings.TRANSACTIONLISTADDRESS_ROUTE}/${address}`}>
 				<AddressTransactionCount transactionCount={transactionCount} />
 			</Link>
-		</div>
+		</>
 	);
 }
