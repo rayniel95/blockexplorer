@@ -38,7 +38,7 @@ export default function Header({ showOffcanvas }: { showOffcanvas: () => void })
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="mb-2">
-                <Nav.Link><Link href={'/'}>Home</Link></Nav.Link>
+                <Link href={'/'}>Home</Link>
                 <NetworkSwitcher id="offCanvasNav" actionForNetwork={actionsForNetwork} defaultNetwork={networkToNetworkName[network]} />
               </Nav>
               <Searcher />
