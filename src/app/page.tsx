@@ -8,7 +8,6 @@ import { useAppSelector } from "@/src/stateManager/hooks";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 
-//TODO - add horizontal scroll to text in address, etc.
 export default function Home() {
 	const [blocks, setBlocks] = useState<any[]>([]);
 	const network = useAppSelector((state) => state.network.newtork);
