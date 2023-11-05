@@ -53,8 +53,8 @@ export default function AddressTransactionList({ addressNumber, from }: { addres
 				{
 					items.map(
 						(item) => (
-							<div>
-								<TransactionItem item={item} key={item.hash} />
+							<div key={item.hash}>
+								<TransactionItem item={item}  />
 								<hr />
 							</div>
 						)
