@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 import { BlockWithTransactions } from "alchemy-sdk";
-import BlockDetails from "../../components/BlockDetails";
+import BlockDetailsWithHeader from "../../components/BlockDetailsWithHeader";
 
 
-export default function BlockHashDetails({params}: {params:{blockHash:string}}) {
+export default function BlockHashDetails({ params }: { params: { blockHash: string } }) {
 	const [block, setBlock] = useState<BlockWithTransactions>({} as BlockWithTransactions);
 	const blockHash = params.blockHash;
 
@@ -25,8 +25,6 @@ export default function BlockHashDetails({params}: {params:{blockHash:string}}) 
 	});
 
 	return (
-		<div>
-			{block.number && <BlockDetails block={block} />}
-		</div>
+		<BlockDetailsWithHeader block={block} />
 	);
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BlockWithTransactions } from "alchemy-sdk";
 import BlockDetails from "../../components/BlockDetails";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum/index"
+import BlockDetailsWithHeader from "../../components/BlockDetailsWithHeader";
 
 
 export default function BlockNumberDetails({params}: {params:{blockNumber:string}}) {
@@ -26,8 +27,6 @@ export default function BlockNumberDetails({params}: {params:{blockNumber:string
 	}, []);
 
 	return (
-		<div>
-			{block.number && <BlockDetails block={block} />}
-		</div>
+		<BlockDetailsWithHeader block={block} />
 	);
 }
