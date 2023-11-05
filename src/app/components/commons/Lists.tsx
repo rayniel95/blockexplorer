@@ -42,6 +42,7 @@ export default function List({ element, itemsCount, itemsPerPage, elementProps, 
           elementProps.map((item, index: number) => (
             <div key={index}>
               <Element {...{item}} />
+              <hr/>
             </div>
           ))}
         <ReactPaginate
