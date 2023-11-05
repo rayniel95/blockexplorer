@@ -6,9 +6,9 @@ import TransactionDetails from "./components/TransactionDetails";
 import { ethereumManager } from "@/src/stateManager/blockchainManager/ethereum";
 
 
-export default function TransactionBlockHashDetails({params}: {params:{transactionHash:string}}) {
+export default function TransactionBlockHashDetails({ params }: { params: { transactionHash: string } }) {
 	const [transaction, setTransaction] = useState<TransactionResponse>({} as TransactionResponse);
-	const {transactionHash} = params;
+	const { transactionHash } = params;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -26,8 +26,9 @@ export default function TransactionBlockHashDetails({params}: {params:{transacti
 	}, []);
 
 	return (
-		<div>
-			{transaction.hash && <TransactionDetails tx={transaction}/>}
-		</div>
+		<>
+			<h4>Transaction Details</h4>
+			{transaction.hash && <TransactionDetails tx={transaction} />}
+		</>
 	);
 }
